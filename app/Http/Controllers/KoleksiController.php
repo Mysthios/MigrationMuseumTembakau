@@ -9,7 +9,8 @@ class KoleksiController extends Controller
 {
     public function index()
     {
-        return Koleksi::with('admin')->get(); // Menampilkan semua koleksi dengan admin terkait
+        $koleksi = Koleksi::all();
+        return view('koleksi.index', compact('koleksi')); 
     }
 
     public function store(Request $request)

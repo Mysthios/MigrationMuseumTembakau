@@ -9,7 +9,8 @@ class TiketController extends Controller
 {
     public function index()
     {
-        return Tiket::with('admin')->get(); // Menampilkan semua tiket dengan admin terkait
+        $tiket = Tiket::all(); // Ambil semua data tiket
+        return view('tiket.index', compact('tiket')); // Kirim ke view
     }
 
     public function store(Request $request)

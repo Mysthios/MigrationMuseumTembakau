@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\KoleksiController;
+use App\Http\Controllers\AcaraController;
+use App\Http\Controllers\ProgramDonasiController;
+use App\Http\Controllers\TiketController;
+use App\Http\Controllers\InfoMuseumController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [InfoMuseumController::class, 'index']);
 
-Route::get('/', [UserController::class, 'index'])->name('user.index');
-Route::get('/koleksi', [UserController::class, 'koleksi'])->name('user.koleksi');
-Route::get('/acara', [UserController::class, 'acara'])->name('user.acara');
-Route::get('/program-donasi', [UserController::class, 'programDonasi'])->name('user.programDonasi');
-Route::get('/tiket', [UserController::class, 'tiket'])->name('user.tiket');
+Route::get('/koleksi', [KoleksiController::class, 'index']);
+Route::get('/acara', [AcaraController::class, 'index']);
+Route::get('/program-donasi', [ProgramDonasiController::class, 'index']);
+Route::get('/tiket', [TiketController::class, 'index']);

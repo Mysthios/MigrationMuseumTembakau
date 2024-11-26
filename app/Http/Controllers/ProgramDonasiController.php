@@ -9,7 +9,8 @@ class ProgramDonasiController extends Controller
 {
     public function index()
     {
-        return ProgramDonasi::with('admin')->get(); // Menampilkan semua program donasi dengan admin terkait
+        $programDonasi = ProgramDonasi::all(); // Ambil semua data program donasi
+        return view('program_donasi.index', compact('programDonasi'));
     }
 
     public function store(Request $request)

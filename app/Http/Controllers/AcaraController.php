@@ -9,7 +9,8 @@ class AcaraController extends Controller
 {
     public function index()
     {
-        return Acara::with('admin')->get(); // Menampilkan semua acara dengan admin terkait
+        $acara = Acara::all(); // Ambil semua data acara
+        return view('acara.index', compact('acara'));
     }
 
     public function store(Request $request)

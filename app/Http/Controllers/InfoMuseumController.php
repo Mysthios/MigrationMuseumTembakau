@@ -9,7 +9,7 @@ class InfoMuseumController extends Controller
 {
     public function index()
     {
-        return InfoMuseum::with('admin')->get(); // Menampilkan semua info museum dengan admin terkait
+        return view('welcome');
     }
 
     public function store(Request $request)
