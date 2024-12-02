@@ -1,55 +1,58 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function index()
+    // Menampilkan form login
+    public function showLoginForm()
     {
-        return Admin::all(); // Menampilkan semua admin
+        return view('admin.login');
     }
 
-    public function store(Request $request)
+    // Proses login
+    public function login(Request $request)
     {
-        $data = $request->validate([
-            'username' => 'required|unique:admins',
-            'password' => 'required|min:6',
+        // Validasi input username dan password
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
-        $data['password'] = bcrypt($data['password']); // Enkripsi password
-        return Admin::create($data);
-    }
-
-    public function show($id)
-    {
-        return Admin::findOrFail($id); // Menampilkan admin berdasarkan ID
-    }
-
-    public function update(Request $request, $id)
-    {
-        $admin = Admin::findOrFail($id);
-
-        $data = $request->validate([
-            'username' => 'sometimes|unique:admins,username,' . $id . ',admin_id',
-            'password' => 'sometimes|min:6',
-        ]);
-
-        if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
+        // Cek apakah username dan password cocok dengan yang telah ditentukan
+        if ($credentials['username'] == 'admin' && $credentials['password'] == 'admin123') {
+            // Redirect ke dashboard jika login berhasil
+            return redirect()->route('admin.dashboard');
         }
 
-        $admin->update($data);
-        return $admin;
+        // Jika login gagal, beri pesan error
+        return back()->with('error', 'Username atau Password salah');
     }
 
-    public function destroy($id)
+    // Menampilkan halaman dashboard admin
+    public function index()
     {
-        $admin = Admin::findOrFail($id);
-        $admin->delete();
+        return view('admin.index');
+    }
 
-        return response()->json(['message' => 'Admin deleted successfully']);
+    // Menampilkan halaman dashboard admin 
+    public function dashboard()
+    {
+        return view('admin.dashboard'); // pastikan Anda memiliki file view 'admin.dashboard'
+    }
+
+    // Menampilkan halaman Manajemen Acara (ubah menjadi readAdminAcara)
+    public function readAdminAcara()
+    {
+        return view('admin.adminacara.readadminacara'); // Halaman untuk melihat acara
+    }
+    public function readAdminKoleksi()
+    {
+        return view('admin.adminkoleksi.readadminkoleksi'); // Halaman untuk melihat acara
+    }
+    public function readAdminTiket()
+    {
+        return view('admin.admintiket.readadmintiket'); // Halaman untuk melihat acara
     }
 }
