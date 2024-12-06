@@ -12,7 +12,7 @@ class KoleksiController extends Controller
         $koleksi = Koleksi::all();
         return view('koleksi.index', compact('koleksi')); 
         
-    }
+    } 
 
     public function store(Request $request)
     {

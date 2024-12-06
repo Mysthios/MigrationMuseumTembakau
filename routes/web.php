@@ -7,11 +7,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProgramDonasiController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\InfoMuseumController;
+use App\Http\Controllers\TestController;
 
 // -----------------------------------------
 // Public Routes
 // -----------------------------------------
 Route::get('/', [InfoMuseumController::class, 'index'])->name('info-museum.index'); // Halaman utama (Info Museum)
+Route::get('/test', [TestController::class, 'index'])->name('test.index'); // Halaman utama (Info Museum)
+
 
 Route::get('/koleksi', [KoleksiController::class, 'index'])->name('koleksi.index'); // Halaman koleksi untuk pengguna biasa
 Route::get('/acara', [AcaraController::class, 'index'])->name('acara.index'); // Halaman acara
