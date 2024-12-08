@@ -13,7 +13,6 @@ use App\Http\Controllers\TestController;
 // Public Routes
 // -----------------------------------------
 Route::get('/', [InfoMuseumController::class, 'index'])->name('info-museum.index'); // Halaman utama (Info Museum)
-Route::get('/test', [TestController::class, 'index'])->name('test.index'); // Halaman utama (Info Museum)
 
 
 Route::get('/koleksi', [KoleksiController::class, 'index'])->name('koleksi.index'); // Halaman koleksi untuk pengguna biasa
