@@ -1,59 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Program Donasi - Museum Tembakau</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .animate-fade-in {
-            animation: fadeIn 1.5s ease-in-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-slide-up {
-            animation: slideUp 1.5s ease-in-out forwards;
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
-<!-- Navbar Section -->
-<nav class="flex items-center justify-between p-4 bg-[#e8e8e5] shadow-md border-b border-gray-300">
-    <div class="text-2xl font-bold text-gray-800">Museum Tembakau Jember</div>
-    <div class="hidden md:flex space-x-4">
-        <a href="/" class="hover:text-blue-500 transition">Beranda</a>
-        <a href="/koleksi" class="hover:text-blue-500 transition">Koleksi</a>
-        <a href="/acara" class="hover:text-blue-500 transition">Acara</a>
-        <a href="/tiket" class="hover:text-blue-500 transition">Tiket</a>
-        <a href="/program_donasi" class="text-blue-500 font-semibold">Donasi</a>
-    </div>
-</nav>
+@extends('layouts.app')
 
-<!-- Hero Section -->
-<section class="relative w-full h-[400px] bg-cover bg-center border-b-4 border-[#c8a876]" style="background-image: url('/image/image 8.png');">
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="relative flex items-center justify-center h-full text-center text-white animate-fade-in">
-        <div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md">Dukung Museum Tembakau Kami</h1>
-            <p class="text-lg md:text-xl mb-6 drop-shadow-sm">Lestarikan warisan budaya tembakau di Jember melalui kontribusi Anda yang murah hati.</p>
-            <a href="#donation-form" class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-300 transform hover:scale-105">Donasi Sekarang</a>
-        </div>
-    </div>
-</section>
+@section('title', 'Donasi Museum')
 
+@section('content')
 <!-- About Donation Program -->
-<section class="py-12 bg-gray-50">
+<section class="py-12 bg-white">
     <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-center mb-8 text-[#c8a876] tracking-wide animate-slide-up relative">
             Bergabung dalam Program Donasi Kami
@@ -78,7 +29,7 @@
 </section>
 
 <!-- Benefits Section -->
-<section class="py-12 bg-gray-50">
+<section class="py-12 bg-white">
     <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-center mb-8 text-[#c8a876] tracking-wide animate-slide-up relative">
             Bagaimana Donasi Anda Membantu
@@ -125,35 +76,5 @@
         </div>
     </div>
 </section>
-</body>
-</html>
 
-
-<!-- Footer Section -->
-<footer class="bg-gray-900 text-gray-200 py-8">
-    <div class="container mx-auto px-6">
-        <div class="flex flex-wrap justify-between">
-            <div class="w-full md:w-1/3 mb-4">
-                <h3 class="font-bold text-lg">Kunjungi Kami</h3>
-                <p>Alamat: Jl. Kalimantan No.1, Sumbersari, Jember</p>
-                <p>Jam Operasional: 08:30 - 16:00 (Setiap Hari)</p>
-                <p>Telepon: +62 821-3295-0536</p>
-            </div>
-            <div class="w-full md:w-1/3 mb-4">
-                <h3 class="font-bold text-lg">Tautan Cepat</h3>
-                <ul>
-                    <li><a href="/tentang" class="hover:underline">Tentang Kami</a></li>
-                    <li><a href="/kontak" class="hover:underline">Kontak</a></li>
-                    <li><a href="/privasi" class="hover:underline">Kebijakan Privasi</a></li>
-                </ul>
-            </div>
-            <div class="w-full md:w-1/3">
-                <h3 class="font-bold text-lg">Ikuti Kami</h3>
-                <a href="https://instagram.com/museumtembakau" class="text-gray-400 hover:text-white">Instagram</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-</body>
-</html>
+@endsection

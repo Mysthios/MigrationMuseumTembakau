@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Museum Info')</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
-<body class="bg-gray-100 font-sans">
- 
+<body class="bg-white font-sans">
+
     <!-- Navbar -->
     <div class="container max-w-screen-xl mx-auto px-4">
         <nav class="flex-wrap lg:flex items-center py-7 xl:relative z-10" x-data="{navbarOpen:false}">
@@ -30,7 +37,7 @@
                     <a href="/tiket">Tiket</a>
                 </li>
                 <li class="font-semibold text-gray-900 text-lg hover:text-gray-400 transition ease-in-out duration-300 mb-5 lg:mb-0">
-                    <a href="/program_donasi">Donasi</a>
+                    <a href="/program-donasi">Donasi</a>
                 </li>
             </ul>
         </nav>
@@ -80,5 +87,9 @@
             //Init tooltips
             tippy('.avatar')
         </script>
+
+    <script>
+        feather.replace()
+    </script>
 </body>
 </html>
