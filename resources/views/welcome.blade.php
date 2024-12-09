@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sambuilding - Tailwind Template</title>
+        <title>Museum Tembakau</title>
         <link rel="stylesheet" href="assets/css/tailwind.css">
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,9 @@
             <div class="container max-w-screen-xl mx-auto px-4">
                 <nav class="flex-wrap lg:flex items-center py-7 xl:relative z-10" x-data="{navbarOpen:false}">
                     <div class="flex items-center justify-between mb-10 lg:mb-0">
-                        <img src="{{ asset('assets/logo.png') }}" alt="Logo img" width="150">
+                        <a href="/">
+                            <img src="{{ asset('assets/logo.png') }}" alt="Logo img" width="150">
+                        </a>
                         <button class="lg:hidden w-10 h-10 ml-auto flex items-center justify-center text-green-700 border border-green-700 rounded-md" @click="navbarOpen = !navbarOpen">
                             <i data-feather="menu"></i>
                         </button>
@@ -87,13 +89,13 @@
                             <img src="{{ asset('assets/logo.png') }}" alt="Logo img" width="150">
                         </div>
                         <div class="flex items-center justify-center lg:justify-start space-x-5">
-                            <a href="#" class="px-3 py-3 bg-gray-200 text-gray-700 rounded-full hover:bg-green-800 hover:text-white transition ease-in-out duration-500">
+                            <a href="#" class="px-3 py-3 bg-gray-200 text-gray-700 rounded-full hover:bg-amber-950 hover:text-white transition ease-in-out duration-500">
                                 <i data-feather="facebook"></i>
                             </a>
-                            <a href="#" class="px-3 py-3 bg-gray-200 text-gray-700 rounded-full hover:bg-green-800 hover:text-white transition ease-in-out duration-500">
+                            <a href="#" class="px-3 py-3 bg-gray-200 text-gray-700 rounded-full hover:bg-amber-950 hover:text-white transition ease-in-out duration-500">
                                 <i data-feather="instagram"></i>
                             </a>
-                            <a href="#" class="px-3 py-3 bg-gray-200 text-gray-700 rounded-full hover:bg-green-800 hover:text-white transition ease-in-out duration-500">
+                            <a href="#" class="px-3 py-3 bg-gray-200 text-gray-700 rounded-full hover:bg-amber-950 hover:text-white transition ease-in-out duration-500">
                                 <i data-feather="linkedin"></i>
                             </a>
                         </div>
@@ -109,8 +111,8 @@
                         <a href="#" class="block font-light text-gray-400 text-xl mb-6 hover:text-gray-800 transition ease-in-out duration-300">WA : +62 823-3577-3521</a>
                     </div>
             </div>
-
         </footer>
+
         <script>
             feather.replace()
         </script>

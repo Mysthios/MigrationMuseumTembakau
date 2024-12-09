@@ -99,7 +99,7 @@
         const posts = [
             {
                 image:
-                    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+                    "{{ asset('assets/Frame 6.png') }}",
                 title: "5 Easy Tips That Will Make Your Latte Art Flourish",
                 description:
                     "Latte art is quite often the most attractive thing for a new barista, and latte art is an excellent gateway to the exciting world of coffee. Latte art easy to start with, but to master latte art patterns, you need a lot practice and determination. Here are my tips that helped me to improve my latte art a few years ago!",
