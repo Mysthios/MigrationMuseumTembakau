@@ -8,13 +8,11 @@ use App\Http\Controllers\ProgramDonasiController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\InfoMuseumController;
 use App\Http\Controllers\TestController;
-use App\Models\MetodePembayaran;
 
 // -----------------------------------------
 // Public Routes
 // -----------------------------------------
 Route::get('/', [InfoMuseumController::class, 'index'])->name('info-museum.index'); // Halaman utama (Info Museum)
-Route::get('/test', [TestController::class, 'index'])->name('test.index'); // Halaman utama (Info Museum)
 
 
 Route::get('/koleksi', [KoleksiController::class, 'index'])->name('koleksi.index'); // Halaman koleksi untuk pengguna biasa
@@ -22,9 +20,7 @@ Route::get('/acara', [AcaraController::class, 'index'])->name('acara.index'); //
 Route::get('/program-donasi', [ProgramDonasiController::class, 'index'])->name('program-donasi.index'); // Halaman program donasi
 Route::get('/tiket', [TiketController::class, 'index'])->name('tiket.index'); // Halaman tiket
 
-Route::get('/bayar', function () {
-    return view('payment.index', ['title' => 'bayar']);
-});
+
 // -----------------------------------------
 // Login Routes
 // -----------------------------------------

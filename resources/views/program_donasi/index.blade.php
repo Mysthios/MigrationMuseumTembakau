@@ -1,66 +1,20 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Program Donasi - Museum Tembakau</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .animate-fade-in {
-            animation: fadeIn 1.5s ease-in-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-slide-up {
-            animation: slideUp 1.5s ease-in-out forwards;
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
-<!-- Navbar Section -->
-<nav class="flex items-center justify-between p-4 bg-[#e8e8e5] shadow-md border-b border-gray-300">
-    <div class="text-2xl font-bold text-gray-800">Museum Tembakau Jember</div>
-    <div class="hidden md:flex space-x-4">
-        <a href="/" class="hover:text-blue-500 transition">Beranda</a>
-        <a href="/koleksi" class="hover:text-blue-500 transition">Koleksi</a>
-        <a href="/acara" class="hover:text-blue-500 transition">Acara</a>
-        <a href="/tiket" class="hover:text-blue-500 transition">Tiket</a>
-        <a href="/program_donasi" class="text-blue-500 font-semibold">Donasi</a>
-    </div>
-</nav>
+@extends('layouts.app')
 
-<!-- Hero Section -->
-<section class="relative w-full h-[400px] bg-cover bg-center border-b-4 border-[#c8a876]" style="background-image: url('/image/image 8.png');">
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="relative flex items-center justify-center h-full text-center text-white animate-fade-in">
-        <div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md">Dukung Museum Tembakau Kami</h1>
-            <p class="text-lg md:text-xl mb-6 drop-shadow-sm">Lestarikan warisan budaya tembakau di Jember melalui kontribusi Anda yang murah hati.</p>
-            <a href="#donation-form" class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-300 transform hover:scale-105">Donasi Sekarang</a>
-        </div>
-    </div>
-</section>
+@section('title', 'Donasi Museum')
 
+@section('content')
 <!-- About Donation Program -->
-<section class="py-12 bg-gray-50">
+<section class="py-12 bg-white">
     <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-center mb-8 text-[#c8a876] tracking-wide animate-slide-up relative">
             Bergabung dalam Program Donasi Kami
             <span class="absolute left-1/2 transform -translate-x-1/2 bottom-[-6px] w-16 h-1 bg-[#c8a876] rounded"></span>
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <img src="/image/frame 5.png" alt="Gambar Museum" class="w-full h-50 rounded-lg shadow-lg hover:scale-105 transform transition duration-300 animate-fade-in">
+            <img 
+                src="/image/awalan.png" 
+                alt="Gambar Museum" 
+                class="w-full max-h-[500px] aspect-[3/4] object-cover rounded-lg shadow-lg hover:scale-105 transform transition duration-300 animate-fade-in">
             <div class="animate-slide-up">
                 <h3 class="text-2xl font-semibold mb-4 text-gray-800 underline decoration-[#c09858] decoration-2">Mengapa Donasi?</h3>
                 <p class="text-gray-700 mb-6 leading-relaxed">
@@ -78,7 +32,7 @@
 </section>
 
 <!-- Benefits Section -->
-<section class="py-12 bg-gray-50">
+<section class="py-12 bg-white">
     <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-center mb-8 text-[#c8a876] tracking-wide animate-slide-up relative">
             Bagaimana Donasi Anda Membantu
@@ -86,74 +40,147 @@
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="text-center animate-fade-in">
-                <img src="https://your-image-url.com/conservation.jpg" alt="Konservasi" class="w-full h-40 object-cover rounded-lg mb-4">
+                <img src="/image/image 8.png" alt="Konservasi" class="w-full h-40 object-cover rounded-lg mb-4">
                 <h3 class="text-xl font-semibold mb-2 underline decoration-[#c09858] decoration-2">Konservasi</h3>
                 <p class="text-gray-700">Menjaga dan melindungi artefak serta pameran bersejarah.</p>
             </div>
             <div class="text-center animate-fade-in">
-                <img src="https://your-image-url.com/education.jpg" alt="Edukasi" class="w-full h-40 object-cover rounded-lg mb-4">
+                <img src="/image/edukasi.jpeg" alt="Edukasi" class="w-full h-40 object-cover rounded-lg mb-4">
                 <h3 class="text-xl font-semibold mb-2 underline decoration-[#c09858] decoration-2">Edukasi</h3>
                 <p class="text-gray-700">Mendanai workshop, seminar, dan pameran interaktif untuk segala usia.</p>
             </div>
             <div class="text-center animate-fade-in">
-                <img src="https://your-image-url.com/community.jpg" alt="Keterlibatan Komunitas" class="w-full h-40 object-cover rounded-lg mb-4">
+                <img src="/image/komunitas.jpeg" alt="Keterlibatan Komunitas" class="w-full h-40 object-cover rounded-lg mb-4">
                 <h3 class="text-xl font-semibold mb-2 underline decoration-[#c09858] decoration-2">Keterlibatan Komunitas</h3>
                 <p class="text-gray-700">Mendukung komunitas lokal melalui program edukasi dan penyuluhan.</p>
             </div>
         </div>
     </div>
-</section>
-
+  </section>
 
 <!-- Donation Form Section -->
-<section class="py-12 bg-gray-100" id="donation-form">
-    <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-8 text-[#c8a876] tracking-wide animate-slide-up">Buat Donasi</h2>
-        <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg animate-fade-in">
-            <form action="#" method="POST">
-                <label for="name" class="block font-medium mb-2">Nama Anda</label>
-                <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg mb-4" placeholder="Masukkan nama Anda">
+<div class="w-full md:w-1/2 h-auto bg-gradient-to-br from-[#f1e0b5] to-[#d8c29e] rounded-2xl shadow-xl overflow-hidden mx-auto transform transition-all duration-500 hover:scale-105 hover:shadow-2xl animate__animated animate__fadeIn">
+    <div class="p-8 bg-white">
+        <h3 class="text-4xl font-extrabold mb-6 text-center text-[#8b5e34] tracking-wide">Program Donasi</h3>
+        <form id="donation-form">
+            <!-- Nama Donatur -->
+            <label for="donor-name" class="block text-lg font-semibold text-gray-700 mb-2">Nama Donatur</label>
+            <input
+                type="text"
+                id="donor-name"
+                placeholder="Nama Lengkap"
+                class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
+            />
 
-                <label for="email" class="block font-medium mb-2">Email Anda</label>
-                <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg mb-4" placeholder="Masukkan email Anda">
+            <!-- Email -->
+            <label for="email" class="block text-lg font-semibold text-gray-700 mb-2">Email</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Alamat Email"
+                class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
+            />
 
-                <label for="amount" class="block font-medium mb-2">Jumlah Donasi</label>
-                <input type="number" id="amount" name="amount" class="w-full px-4 py-2 border rounded-lg mb-4" placeholder="Masukkan jumlah">
+            <!-- Nominal Donasi -->
+            <label for="donation-amount" class="block text-lg font-semibold text-gray-700 mb-2">Nominal Donasi</label>
+            <select
+                id="donation-amount"
+                class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
+            >
+                <option value="50000">Rp50.000</option>
+                <option value="100000">Rp100.000</option>
+                <option value="200000">Rp200.000</option>
+                <option value="500000">Rp500.000</option>
+                <option value="custom">Lainnya</option>
+            </select>
 
-                <button type="submit" class="w-full px-4 py-2 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-300 transform hover:scale-105">Donasi Sekarang</button>
-            </form>
-        </div>
+            <!-- Nominal Custom -->
+            <div id="custom-amount-container" class="hidden mt-2">
+                <label for="custom-amount" class="block text-lg font-semibold text-gray-700 mb-2">Nominal Lainnya</label>
+                <input
+                    type="number"
+                    id="custom-amount"
+                    placeholder="Masukkan nominal"
+                    class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
+                />
+            </div>
+
+            <!-- Catatan -->
+            <label for="notes" class="block text-lg font-semibold text-gray-700 mb-2">Catatan (Opsional)</label>
+            <textarea
+                id="notes"
+                placeholder="Tulis pesan atau dedikasi"
+                class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
+            ></textarea>
+
+            <!-- Submit Button -->
+            <button
+                type="submit"
+                class="w-full py-4 bg-[#8b5e34] text-white font-semibold text-xl rounded-xl hover:bg-[#704927] transition-all duration-300 focus:ring-2 focus:ring-[#8b5e34] focus:outline-none transform hover:scale-105 shadow-lg"
+            >
+                DONASI SEKARANG
+            </button>
+        </form>
     </div>
-</section>
-</body>
-</html>
+</div>
 
 
-<!-- Footer Section -->
-<footer class="bg-gray-900 text-gray-200 py-8">
-    <div class="container mx-auto px-6">
-        <div class="flex flex-wrap justify-between">
-            <div class="w-full md:w-1/3 mb-4">
-                <h3 class="font-bold text-lg">Kunjungi Kami</h3>
-                <p>Alamat: Jl. Kalimantan No.1, Sumbersari, Jember</p>
-                <p>Jam Operasional: 08:30 - 16:00 (Setiap Hari)</p>
-                <p>Telepon: +62 821-3295-0536</p>
-            </div>
-            <div class="w-full md:w-1/3 mb-4">
-                <h3 class="font-bold text-lg">Tautan Cepat</h3>
-                <ul>
-                    <li><a href="/tentang" class="hover:underline">Tentang Kami</a></li>
-                    <li><a href="/kontak" class="hover:underline">Kontak</a></li>
-                    <li><a href="/privasi" class="hover:underline">Kebijakan Privasi</a></li>
-                </ul>
-            </div>
-            <div class="w-full md:w-1/3">
-                <h3 class="font-bold text-lg">Ikuti Kami</h3>
-                <a href="https://instagram.com/museumtembakau" class="text-gray-400 hover:text-white">Instagram</a>
-            </div>
-        </div>
+
+<!-- Popup for confirmation -->
+<div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-80 animate__animated animate__fadeIn animate__delay-2s">
+        <h3 class="text-xl font-bold mb-4 text-center text-[#c09858]">Detail Donasi</h3>
+        <p class="text-gray-700 mb-2"><strong>Nama Donatur:</strong> <span id="popup-name"></span></p>
+        <p class="text-gray-700 mb-2"><strong>Email:</strong> <span id="popup-email"></span></p>
+        <p class="text-gray-700 mb-4"><strong>Nominal Donasi:</strong> <span id="popup-amount"></span></p>
+        <img id="popup-qris" src="qris-placeholder.png" alt="QRIS Code" class="w-full h-auto rounded shadow mb-4" />
+        <button onclick="closePopup()" class="mt-4 bg-[#8b5e34] text-white px-4 py-2 rounded-lg hover:bg-[#704927] transition focus:outline-none focus:ring focus:ring-[#8b5e34]">
+            Tutup
+        </button>
     </div>
-</footer>
+</div>
 
-</body>
-</html>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('donation-form');
+    const popup = document.getElementById('popup');
+    const popupName = document.getElementById('popup-name');
+    const popupEmail = document.getElementById('popup-email');
+    const popupAmount = document.getElementById('popup-amount');
+    const popupQris = document.getElementById('popup-qris');
+    const customAmountInput = document.getElementById('custom-amount');
+    const customAmountContainer = document.getElementById('custom-amount-container');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const donorName = document.getElementById('donor-name').value;
+        const email = document.getElementById('email').value;
+        const donationAmount = document.getElementById('donation-amount').value;
+        let donationAmountValue = donationAmount === 'custom' ? customAmountInput.value : donationAmount;
+
+        popupName.textContent = donorName;
+        popupEmail.textContent = email;
+        popupAmount.textContent = `Rp${parseInt(donationAmountValue).toLocaleString()}`;
+        popupQris.src = 'qris-placeholder.png'; 
+
+        popup.classList.remove('hidden');
+        popup.classList.add('animate__fadeIn');
+        form.reset();
+    });
+
+    window.closePopup = function () {
+        popup.classList.add('hidden');
+    };
+
+    document.getElementById('donation-amount').addEventListener('change', function () {
+        if (this.value === 'custom') {
+            customAmountContainer.classList.remove('hidden');
+        } else {
+            customAmountContainer.classList.add('hidden');
+        }
+    });
+});
+</script>
+
+@endsection
