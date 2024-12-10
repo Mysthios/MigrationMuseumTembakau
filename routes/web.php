@@ -42,6 +42,17 @@ Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admi
 // Route untuk Manajemen Acara (ubah menjadi readadminacara)
 Route::get('admin/adminacara/readadminacara', [AdminController::class, 'readAdminAcara'])->name('admin.read_adminacara');
 // Route untuk Manajemen Koleksi (ubah menjadi readadminkoleksi)
-Route::get('admin/adminkoleksi/readadminkoleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi');
+// Route::get('admin/adminkoleksi/readadminkoleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi');
+
+
+Route::post('readadminkoleksi', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
+// Route::resource('readadminkoleksi', [KoleksiController::class]);
+Route::post('/adminkoleksi/store', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
+
+// Route::get('readadminkoleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi');
+
+// Route::get('readadminkoleksi', [KoleksiController::class, 'store'])->name('admin.read_adminkoleksi');
+
+Route::get('koleksi', [KoleksiController::class, 'showKoleksi'])->name('koleksi');
 // Route untuk Manajemen Koleksi (ubah menjadi readadmintiket)
 Route::get('admin/admintiket/readadminkoleksi', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');

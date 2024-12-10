@@ -13,11 +13,11 @@ class Koleksi extends Model
     protected $primaryKey = 'koleksi_id';
 
     protected $fillable = [
-        'admin_id',
+        // 'admin_id',
         'judul',
         'deskripsi',
         'gambar',
-        'kategori',
+        // 'kategori',
     ];
 
     // Relasi
