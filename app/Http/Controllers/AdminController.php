@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Koleksi;
+
 
 class AdminController extends Controller
 {
@@ -47,10 +49,13 @@ class AdminController extends Controller
     {
         return view('admin.adminacara.readadminacara'); // Halaman untuk melihat acara
     }
+
     public function readAdminKoleksi()
     {
-        return view('admin.adminkoleksi.readadminkoleksi'); // Halaman untuk melihat acara
+        $koleksis = Koleksi::all(); // Ambil semua data koleksi
+        return view('admin.adminkoleksi.readadminkoleksi', compact('koleksis')); // Kirim ke view
     }
+    
     public function readAdminTiket()
     {
         return view('admin.admintiket.readadmintiket'); // Halaman untuk melihat acara
