@@ -21,8 +21,8 @@ class MetodePembayaranController extends Controller
             'nomor_akun' => 'required',
             'nama_bank' => 'nullable',
         ]);
-
         return MetodePembayaran::create($data);
+        
     }
 
     public function show($id)
