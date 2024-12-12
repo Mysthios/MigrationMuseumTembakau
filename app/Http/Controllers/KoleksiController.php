@@ -66,16 +66,6 @@ public function store(Request $request)
         dd($e->getMessage());
     }
 
-    // $request->validate([
-    //             'admin_id' => 'required|exists:admins,admin_id', 
-    //             'judul' => 'required',
-    //             'deskripsi' => 'required',
-    //             'gambar' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
-    // ]);
-    // $gambar = $request->file('gambar');
-    // $path = $gambar->store('upload') ;
-    // return back()->with('success', 'Koleksi berhasil ditambahkan!');
-
 }
 
 
@@ -85,26 +75,23 @@ public function showKoleksi()
     return view('koleksi.index', compact('koleksis'));
 }
 
-// public function update(Request $request, $id)
+// public function edit($id)
 // {
+//     Cari koleksi berdasarkan ID, jika tidak ditemukan akan menghasilkan error 404
 //     $koleksi = Koleksi::findOrFail($id);
 
-//     $data = $request->validate([
-//         'admin_id' => 'sometimes|exists:admins,admin_id',
-//         'judul' => 'sometimes',
-//         'deskripsi' => 'sometimes',
-//     ]);
-
-//     $koleksi->update($data);
-//     return $koleksi;
+//     Tampilkan view edit dan kirimkan data koleksi
+//     return view('koleksi.edit', compact('koleksi'));
 // }
 
 public function edit($id)
 {
-    // Cari koleksi berdasarkan ID, jika tidak ditemukan akan menghasilkan error 404
-    $koleksi = Koleksi::findOrFail($id);
+    $koleksi = Koleksi::find($id); // Mengambil data berdasarkan ID
 
-    // Tampilkan view edit dan kirimkan data koleksi
+    if (!$koleksi) {
+        return redirect()->route('admin.adminkoleksi.readadminkoleksi')->with('error', 'Data tidak ditemukan.');
+    }
+
     return view('koleksi.edit', compact('koleksi'));
 }
 

@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Koleksi Museum')
@@ -28,7 +29,7 @@
                     <div class="absolute top-4 right-4 z-10 flex space-x-2">
                         <!-- Tombol Edit -->
                         <button class="p-2 rounded bg-blue-600 text-white shadow-lg hover:bg-blue-500 focus:outline-none"
-                            onclick="document.getElementById('editKoleksi').classList.remove('hidden')">
+                            onclick="openEditKoleksi({{ json_encode($koleksi) }})">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 3.487l3.656 3.656m-2.121-2.121L7.5 17.94v3.535h3.535l10.293-10.293a1.5 1.5 0 000-2.121l-3.656-3.656a1.5 1.5 0 00-2.121 0z"></path>
                             </svg>
@@ -55,7 +56,6 @@
         </div>
     </div>
 </main>
-
 
 {{-- Pop up tambah koleksi --}}
 <div id="addKoleksi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
@@ -92,7 +92,7 @@
 <div id="editKoleksi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white p-6 rounded shadow-md w-96 relative overflow-hidden">
         <h2 class="text-lg font-bold mb-4">Edit Koleksi</h2>
-        <form action="{{ route('readadminkoleksi.update', $koleksi->id) }}" method="POST" enctype="multipart/form-data">
+        <form id="editForm" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-4">
@@ -109,7 +109,7 @@
             </div>
             <div class="flex justify-end space-x-2">
                 <button type="button" class="px-4 py-2 bg-gray-300 rounded"
-                    onclick="document.getElementById('addKoleksi').classList.add('hidden')">Batal</button>
+                    onclick="document.getElementById('editKoleksi').classList.add('hidden')">Batal</button>
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Edit</button>
             </div>
         </form>
@@ -118,12 +118,12 @@
 
 <script>
     function openEditKoleksi(koleksi) {
-        document.getElementById('editKoleksi').classList.remove('hidden');
+        const editForm = document.getElementById('editForm');
+        editForm.action = `{{ url('readadminkoleksi') }}/${koleksi.id}`;
         document.getElementById('edit_judul').value = koleksi.judul;
         document.getElementById('edit_deskripsi').value = koleksi.deskripsi;
+        document.getElementById('editKoleksi').classList.remove('hidden');
     }
 </script>
 
 @endsection
-
-
