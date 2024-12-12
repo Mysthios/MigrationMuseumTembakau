@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\File;
 
 class KoleksiController extends Controller
 {
-    public function index()
-    {
-        $koleksi = Koleksi::all();
-        return view('koleksi.index', compact('koleksi')); 
-        
-    } 
 
     public function indexadmin()
     {

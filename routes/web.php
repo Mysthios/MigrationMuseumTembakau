@@ -51,6 +51,7 @@ Route::get('admin/koleksi/readadminkoleksi', [AdminController::class, 'readAdmin
 Route::middleware(['auth'])->group(function () {
     Route::post('admin/koleksi/readadminkoleksi', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
 });
+Route::get('/admin/koleksi', [KoleksiController::class, 'indexadmin'])->name('admin.adminkoleksi.readadminkoleksi');
 
 // Route::resource('readadminkoleksi', [KoleksiController::class]);
 Route::post('admin/readadminkoleksi/store', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
