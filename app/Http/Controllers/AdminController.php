@@ -39,12 +39,6 @@ class AdminController extends Controller
     return back()->with('error', 'Username atau Password salah');
 }
 
-    // Menampilkan halaman dashboard admin
-    public function index()
-    {
-        return view('admin.index');
-    }
-
     // Menampilkan halaman dashboard admin 
     public function dashboard()
     {
@@ -56,7 +50,7 @@ class AdminController extends Controller
     {
         return view('admin.adminacara.readadminacara'); // Halaman untuk melihat acara
     }
-
+ 
     public function readAdminKoleksi()
     {
         $koleksis = Koleksi::all(); // Ambil semua data koleksi
