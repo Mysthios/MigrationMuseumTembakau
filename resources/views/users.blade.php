@@ -12,7 +12,6 @@
         <div class="card">
             <div class="card-header">
                 Manajement Tiket
-              
             </div>
             @if (Session::has('success'))
                 <span class="alert alert-success p-2">{{ Session::get('success') }}</span>
