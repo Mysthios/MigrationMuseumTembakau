@@ -68,4 +68,12 @@ class AdminController extends Controller
     {
         return view('admin.admintiket.readadmintiket'); // Halaman untuk melihat acara
     }
+
+    public function readAdminDonasi()
+    {
+        $programDonasis = \App\Models\ProgramDonasi::with('admin')->get(); 
+        return view('admin.adminprogramdonasi.readadminprogramdonasi', compact('programDonasis'));
+    }
+
+
 }

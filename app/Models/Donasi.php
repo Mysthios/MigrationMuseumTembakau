@@ -31,4 +31,17 @@ class Donasi extends Model
     {
         return $this->belongsTo(MetodePembayaran::class, 'metode_pembayaran_id', 'metode_pembayaran_id');
     }
+
+    // Relasi ke Admin
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id', 'admin_id');
+    }
+
+    // Relasi ke Donasi
+    public function donasi()
+    {
+        return $this->hasMany(Donasi::class, 'program_id', 'program_id');
+    }
+
 }

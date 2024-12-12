@@ -42,9 +42,13 @@ Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admi
 // Route untuk Manajemen Acara (ubah menjadi readadminacara)
 Route::get('admin/adminacara/readadminacara', [AdminController::class, 'readAdminAcara'])->name('admin.read_adminacara');
 // Route untuk Manajemen Koleksi (ubah menjadi readadminkoleksi)
-// Route::get('admin/adminkoleksi/readadminkoleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi');
+Route::get('admin/adminkoleksi/readadminkoleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi');
 
 
+
+// -----------------------------------------
+// Admin Koleksi Routes
+// -----------------------------------------
 // Route::post('readadminkoleksi', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
 Route::post('admin/koleksi/readadminkoleksi', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
 Route::get('admin/koleksi/readadminkoleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi');
@@ -63,3 +67,17 @@ Route::post('admin/readadminkoleksi/store', [KoleksiController::class, 'store'])
 Route::get('koleksi', [KoleksiController::class, 'showKoleksi'])->name('koleksi');
 // Route untuk Manajemen Koleksi (ubah menjadi readadmintiket)
 Route::get('admin/admintiket/readadminkoleksi', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');
+
+
+// -----------------------------------------
+// Admin Program Donasi Routes
+// -----------------------------------------
+Route::get('/admin/donasi', [AdminController::class, 'readAdminDonasi'])->name('admin.read_admindonasi');
+// routes/web.php
+Route::prefix('admin')->middleware('auth')->group(function () {
+    // Route untuk tampilan list program donasi
+    Route::get('adminprogramdonasi', [ProgramDonasiController::class, 'index'])->name('readadminprogramdonasi.index');
+    // Route untuk menyimpan program donasi
+    Route::post('adminprogramdonasi', [ProgramDonasiController::class, 'store'])->name('readadminprogramdonasi.store');
+});
+
