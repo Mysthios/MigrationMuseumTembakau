@@ -9,11 +9,8 @@ return [
     | Default Database Connection Name
     |--------------------------------------------------------------------------
     |
-    | Here you may specify which of the database connections below you wish
-    | to use as your default connection for database operations. This is
-    | the connection which will be utilized unless another connection
-    | is explicitly specified when you execute a query / statement.
-    |
+    | Mengatur koneksi database default yang akan digunakan oleh aplikasi.
+    | Jika tidak ada koneksi lain yang ditentukan, maka koneksi ini akan dipakai.
     */
 
     'default' => env('DB_CONNECTION', 'sqlite'),
@@ -23,14 +20,13 @@ return [
     | Database Connections
     |--------------------------------------------------------------------------
     |
-    | Below are all of the database connections defined for your application.
-    | An example configuration is provided for each database system which
-    | is supported by Laravel. You're free to add / remove connections.
-    |
+    | Semua koneksi database yang dapat digunakan oleh aplikasi didefinisikan di sini.
+    | Contoh untuk setiap sistem database (SQLite, MySQL, PostgreSQL, dll.) disediakan.
     */
 
     'connections' => [
 
+        // Koneksi SQLite
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
@@ -42,26 +38,28 @@ return [
             'synchronous' => null,
         ],
 
+        // Koneksi MySQL
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_HOST', '127.0.0.1'), // Alamat host untuk database MySQL
+            'port' => env('DB_PORT', '3306'), // Port default untuk MySQL
+            'database' => env('DB_DATABASE', 'laravel'), // Nama database
+            'username' => env('DB_USERNAME', 'root'), // Username database
+            'password' => env('DB_PASSWORD', ''), // Password database
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'charset' => env('DB_CHARSET', 'utf8mb4'), // Karakter encoding
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
-            'prefix' => '',
+            'prefix' => '', // Prefix untuk tabel (kosong jika tidak dibutuhkan)
             'prefix_indexes' => true,
             'strict' => true,
-            'engine' => null,
+            'engine' => null, // Mesin database
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
 
+        // Koneksi MariaDB
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
@@ -82,6 +80,7 @@ return [
             ]) : [],
         ],
 
+        // Koneksi PostgreSQL
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DB_URL'),
@@ -97,6 +96,7 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        // Koneksi SQL Server
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DB_URL'),
@@ -108,6 +108,7 @@ return [
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
+            // Uncomment untuk menggunakan enkripsi atau sertifikat
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
@@ -119,10 +120,8 @@ return [
     | Migration Repository Table
     |--------------------------------------------------------------------------
     |
-    | This table keeps track of all the migrations that have already run for
-    | your application. Using this information, we can determine which of
-    | the migrations on disk haven't actually been run on the database.
-    |
+    | Tabel ini digunakan untuk melacak migrasi yang sudah dijalankan.
+    | Informasi ini digunakan untuk menentukan migrasi yang belum dijalankan.
     */
 
     'migrations' => [
@@ -135,10 +134,8 @@ return [
     | Redis Databases
     |--------------------------------------------------------------------------
     |
-    | Redis is an open source, fast, and advanced key-value store that also
-    | provides a richer body of commands than a typical key-value system
-    | such as Memcached. You may define your connection settings here.
-    |
+    | Pengaturan untuk database Redis. Redis adalah key-value store yang cepat
+    | dan canggih dengan banyak fitur tambahan dibandingkan sistem key-value lainnya.
     */
 
     'redis' => [
