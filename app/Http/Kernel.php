@@ -13,7 +13,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         // Middleware default Laravel
-        'AdminMiddleware' => \App\Http\Middleware\AdminMiddleware::class, // Tambahkan ini
+        'admin' => \App\Http\Middleware\AdminMiddleware::class, // Tambahkan ini
     ];
     
     

@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Koleksi;
+use Illuminate\Support\Facades\Auth;
+use Illumintate\Foundation\Auth\User as Authcenticable;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -29,7 +31,10 @@ class AdminController extends Controller
         // Cek apakah admin ditemukan dan password cocok
         if ($admin && Hash::check($credentials['password'], $admin->password)) {
             // Simpan informasi admin ke sesi atau gunakan mekanisme login Laravel
-            session(['admin_id' => $admin->admin_id]);
+            // session(['admin_id' => $admin->admin_id]);
+            // Auth::login($admin);
+            $request->session()->put('admin_logged_in', true);
+            $request->session()->put('admin_id', $admin->admin_id);
 
             // Redirect ke dashboard jika login berhasil
             return redirect()->route('admin.dashboard')->with('success', 'Login berhasil!');

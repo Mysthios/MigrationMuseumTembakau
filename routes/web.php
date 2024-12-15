@@ -32,10 +32,10 @@ Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admi
 // Route untuk mengirimkan data login
 Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login');
 // Route untuk halaman dashboard setelah login
+Route::get('admin/index', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 // Hanya bisa diakses oleh admin
-Route::middleware(['AdminMiddleware'])->group(function () {
-    Route::get('admin/index', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('admin/adminacara/readadminacara', [AdminController::class, 'readAdminAcara'])->name('admin.read_adminacara');
     Route::get('admin/koleksi', [KoleksiController::class, 'indexadmin'])->name('admin.adminkoleksi.readadminkoleksi');
