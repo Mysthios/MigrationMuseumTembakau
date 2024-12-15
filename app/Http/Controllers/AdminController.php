@@ -16,28 +16,28 @@ class AdminController extends Controller
 
     // Proses login
     public function login(Request $request)
-{
+    {
     // Validasi input username dan password
-    $credentials = $request->validate([
-        'username' => 'required',
-        'password' => 'required',
-    ]);
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
-    // Cari admin berdasarkan username
-    $admin = \App\Models\Admin::where('username', $credentials['username'])->first();
+        // Cari admin berdasarkan username
+        $admin = \App\Models\Admin::where('username', $credentials['username'])->first();
 
-    // Cek apakah admin ditemukan dan password cocok
-    if ($admin && Hash::check($credentials['password'], $admin->password)) {
-        // Simpan informasi admin ke sesi atau gunakan mekanisme login Laravel
-        session(['admin_id' => $admin->admin_id]);
+        // Cek apakah admin ditemukan dan password cocok
+        if ($admin && Hash::check($credentials['password'], $admin->password)) {
+            // Simpan informasi admin ke sesi atau gunakan mekanisme login Laravel
+            session(['admin_id' => $admin->admin_id]);
 
-        // Redirect ke dashboard jika login berhasil
-        return redirect()->route('admin.dashboard')->with('success', 'Login berhasil!');
+            // Redirect ke dashboard jika login berhasil
+            return redirect()->route('admin.dashboard')->with('success', 'Login berhasil!');
+        }
+
+            // Jika login gagal, beri pesan error
+        return back()->with('error', 'Username atau Password salah');
     }
-
-    // Jika login gagal, beri pesan error
-    return back()->with('error', 'Username atau Password salah');
-}
 
 
 

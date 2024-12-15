@@ -9,6 +9,8 @@ use App\Http\Controllers\ProgramDonasiController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\InfoMuseumController;
 use App\Http\Controllers\TestController;
+use App\Http\Kernel;
+use App\Http\Middleware\AdminMiddleware;
 
 // -----------------------------------------
 // Public Routes
@@ -32,7 +34,7 @@ Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login
 // Route untuk halaman dashboard setelah login
 
 // Hanya bisa diakses oleh admin
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['AdminMiddleware'])->group(function () {
     Route::get('admin/index', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('admin/adminacara/readadminacara', [AdminController::class, 'readAdminAcara'])->name('admin.read_adminacara');
@@ -43,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('admin/{id}/destroy', [KoleksiController::class, 'destroy'])->name('koleksi.destroy');
     Route::get('admin/admintiket/readadminkoleksi', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');
 });
+
 
 
 

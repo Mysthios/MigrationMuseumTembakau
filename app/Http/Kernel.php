@@ -12,7 +12,9 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        // Middleware default Laravel
+        'AdminMiddleware' => \App\Http\Middleware\AdminMiddleware::class, // Tambahkan ini
     ];
+    
     
 }
