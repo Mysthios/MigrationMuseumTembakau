@@ -15,14 +15,14 @@ class Acara extends Model
     protected $fillable = [
         'admin_id',
         'nama_acara',
-        'tanggal_mulai_acara',
-        'tanggal_selesai_acara',
+        'tanggal_acara',
+        'deskripsi_singkat',
         'deskripsi',
-        'status',
-        'gambar_banner',
+        'gambar',
+        'google_map_url'
     ];
 
-    // Relasi
+    // Relasi 
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'admin_id', 'admin_id');

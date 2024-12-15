@@ -96,34 +96,32 @@
             @csrf
             @method('PUT')
             <div class="mb-4">
-                <label for="admin_id" class="block text-sm">Admin ID</label>
-                <input type="number" id="admin_id" name="admin_id" class="border p-2 w-full rounded">
+                <label for="edit_judul" class="block text-sm">Nama Koleksi</label>
+                <input type="text" id="edit_judul" name="judul" class="border p-2 w-full rounded">
             </div>
             <div class="mb-4">
-                <label for="judul" class="block text-sm">Nama Koleksi</label>
-                <input type="text" id="judul" name="judul" class="border p-2 w-full rounded">
-            </div>
-            <div class="mb-4">
-                <label for="deskripsi" class="block text-sm">Deskripsi Koleksi</label>
-                <textarea id="deskripsi" name="deskripsi" class="border p-2 w-full rounded"></textarea>
+                <label for="edit_deskripsi" class="block text-sm">Deskripsi Koleksi</label>
+                <textarea id="edit_deskripsi" name="deskripsi" class="border p-2 w-full rounded"></textarea>
             </div>
             <div class="flex justify-end space-x-2">
                 <button type="button" class="px-4 py-2 bg-gray-300 rounded"
                     onclick="document.getElementById('editKoleksi').classList.add('hidden')">Batal</button>
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Edit</button>
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
             </div>
         </form>
     </div>
 </div>
 
+
 <script>
     function openEditKoleksi(koleksi) {
-        const editForm = document.getElementById('editForm');
-        editForm.action = `{{ url('readadminkoleksi') }}/${koleksi.id}`;
-        document.getElementById('edit_judul').value = koleksi.judul;
-        document.getElementById('edit_deskripsi').value = koleksi.deskripsi;
-        document.getElementById('editKoleksi').classList.remove('hidden');
-    }
+    const editForm = document.getElementById('editForm');
+    editForm.action = `/admin/koleksi/${koleksi.id}`;
+    document.getElementById('edit_judul').value = koleksi.judul;
+    document.getElementById('edit_deskripsi').value = koleksi.deskripsi;
+    document.getElementById('editKoleksi').classList.remove('hidden');
+}
+
 </script>
 
-@endsection
+@endsection 

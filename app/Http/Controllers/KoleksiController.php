@@ -12,127 +12,112 @@ use Illuminate\Support\Facades\File;
 class KoleksiController extends Controller
 {
 
-public function indexadmin()
-{
-    $koleksis = Koleksi::all();
-    return view('admin.adminkoleksi.readadminkoleksi', compact('koleksis')); // Menggunakan 'koleksis' untuk konsistensi
-}
-
-
-public function create() {
-    return view('koleksi.create');
-}
-
-public function store(Request $request)
-{
-        //Mengambil admin yang sedang login
-    $admin = Admin::find(1);  //Misalnya mencari admin dengan ID 1
-    
-    if ($admin) {
-            //Pastikan kita menggunakan relasi yang benar
-        $koleksi = new Koleksi();
-        $koleksi->judul = $request->judul;
-        $koleksi->deskripsi = $request->deskripsi;
-        $koleksi->admin_id = $admin->admin_id; //Pastikan menggunakan admin_id dengan benar
+    public function indexadmin()
+    {
+        $koleksis = Koleksi::all();
+        return view('admin.adminkoleksi.readadminkoleksi', compact('koleksis')); // Menggunakan 'koleksis' untuk konsistensi
     }
-    try {
-            //Validasi input
-        $request->validate([
-            'admin_id' => 'required|exists:admins,admin_id', 
-            'judul' => 'required',
-            'deskripsi' => 'required',
-            'gambar' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
-        ]);
 
-            //Upload gambar jika ada
-        $gambarPath = null;
-        if ($request->hasFile('gambar')) {
-            $gambarPath = $request->file('gambar')->store('uploads','public');
-            // $gambarPath = str_replace('public', 'storage', $gambarPath);  Ubah untuk URL
+
+    public function create() {
+        return view('koleksi.create');
+    }
+
+    public function store(Request $request)
+    {
+            //Mengambil admin yang sedang login
+        $admin = Admin::find(1);  //Misalnya mencari admin dengan ID 1
+        
+        if ($admin) {
+                //Pastikan kita menggunakan relasi yang benar
+            $koleksi = new Koleksi();
+            $koleksi->judul = $request->judul;
+            $koleksi->deskripsi = $request->deskripsi;
+            $koleksi->admin_id = $admin->admin_id; //Pastikan menggunakan admin_id dengan benar
+        }
+        try {
+                //Validasi input
+            $request->validate([
+                'admin_id' => 'required|exists:admins,admin_id', 
+                'judul' => 'required',
+                'deskripsi' => 'required',
+                'gambar' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
+            ]);
+
+            $gambarPath = null;
+            if ($request->hasFile('gambar')) {
+                $gambarPath = $request->file('gambar')->store('uploads','public');
+            }
+
+            Koleksi::create([
+                'admin_id' => $request->admin_id, 
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'gambar' => $gambarPath
+            ]);
+
+            return redirect()->route('admin.adminkoleksi.readadminkoleksi')->with('success', 'Koleksi berhasil ditambahkan!');
+        } catch (\Exception $e) {
+                //Debug error jika terjadi masalah
+            dd($e->getMessage());
         }
 
-            //Simpan data ke tabel Koleksi
-        Koleksi::create([
-            'admin_id' => $request->admin_id,  //Tambahkan admin_id ke dalam data yang disimpan
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $gambarPath
-        ]);
-
-            //Redirect dengan pesan sukses
-        return redirect()->route('admin.adminkoleksi.readadminkoleksi')->with('success', 'Koleksi berhasil ditambahkan!');
-    } catch (\Exception $e) {
-            //Debug error jika terjadi masalah
-        dd($e->getMessage());
     }
 
-}
-
-
-public function showKoleksi()
-{
-    $koleksis = Koleksi::all(); // Ambil semua koleksi dari database
-    return view('koleksi.index', compact('koleksis'));
-}
-
-// public function edit($id)
-// {
-//     Cari koleksi berdasarkan ID, jika tidak ditemukan akan menghasilkan error 404
-//     $koleksi = Koleksi::findOrFail($id);
-
-//     Tampilkan view edit dan kirimkan data koleksi
-//     return view('koleksi.edit', compact('koleksi'));
-// }
-
-public function edit($id)
-{
-    $koleksi = Koleksi::find($id); // Mengambil data berdasarkan ID
-
-    if (!$koleksi) {
-        return redirect()->route('admin.adminkoleksi.readadminkoleksi')->with('error', 'Data tidak ditemukan.');
+    public function showKoleksi()
+    {
+        $koleksis = Koleksi::all(); // Ambil semua koleksi dari database
+        return view('koleksi.index', compact('koleksis'));
     }
 
-    return view('koleksi.edit', compact('koleksi'));
-}
+    public function edit($id)
+    {
+        $koleksi = Koleksi::find($id); // Mengambil data berdasarkan ID
+
+        if (!$koleksi) {
+            return redirect()->route('admin.adminkoleksi.readadminkoleksi')->with('error', 'Data tidak ditemukan.');
+        }
+
+        return view('koleksi.edit', compact('koleksi'));
+    }
 
 
-public function update(Request $request, $id)
+    public function update(Request $request, $id)
 {
-    $koleksi = Koleksi::findOrFail($id);
-    $data = $request->validate([
-        'admin_id' => 'required|exists:admins,admin_id',
+    $request->validate([
         'judul' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
-        'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi untuk file gambar
+        'deskripsi' => 'nullable|string',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
     ]);
-    // Jika ada file gambar baru, simpan dan update
+
+    $koleksi = Koleksi::findOrFail($id);
+
+    $koleksi->judul = $request->input('judul');
+    $koleksi->deskripsi = $request->input('deskripsi');
+
     if ($request->hasFile('gambar')) {
-        // Hapus gambar lama jika ada
-        if ($koleksi->gambar && Storage::exists($koleksi->gambar)) {
-            Storage::delete($koleksi->gambar);
-        }
-        // Simpan gambar baru
-        $data['gambar'] = $request->file('gambar')->store('koleksi');
-}
-    $koleksi->update($data);
-    return redirect()->back()->with('success', 'Koleksi berhasil diperbarui.');
-}
-
-
-public function destroy($id)
-{
-    try {
-        $koleksi = Koleksi::findOrFail($id);
-
-        // Hapus file gambar dari storage
-        File::delete($koleksi->image);
-
-        $koleksi->delete();
-        return redirect()->back()->with('success', 'Koleksi berhasil dihapus!');
-    } catch (\Exception $e) {
-        dd($e->getMessage());
+        $filePath = $request->file('gambar')->store('koleksi', 'public');
+        $koleksi->gambar = $filePath;
     }
+
+    $koleksi->save();
+
+    return redirect()->route('admin.read_adminkoleksi')->with('success', 'Koleksi berhasil diperbarui.');
 }
 
+
+    public function destroy($id)
+    {
+        try {
+            $koleksi = Koleksi::findOrFail($id);
+
+            File::delete($koleksi->image);
+
+            $koleksi->delete();
+            return redirect()->back()->with('success', 'Koleksi berhasil dihapus!');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 
 }

@@ -50,22 +50,15 @@ Route::get('koleksi', [KoleksiController::class, 'showKoleksi'])->name('koleksi'
 Route::get('admin/koleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi'); // Yang mengarahkan ke dashboard
 Route::get('admin/koleksi', [KoleksiController::class, 'indexadmin'])->name('admin.adminkoleksi.readadminkoleksi'); // Setelah upload, akan kembali kesini
 Route::post('admin/koleksi', [KoleksiController::class, 'store'])->name('readadminkoleksi.store'); // Setelah upload, akan kembali kesini
-Route::put('admin/{id}/edit', [KoleksiController::class, 'edit'])->name('readadminkoleksi.edit'); 
-Route::put('admin/{id}', [KoleksiController::class, 'update'])->name('readadminkoleksi.update'); 
+Route::get('admin/{id}/edit', [KoleksiController::class, 'edit'])->name('readadminkoleksi.edit'); 
+// Route::put('admin/{id}', [KoleksiController::class, 'update'])->name('readadminkoleksi.update'); 
+Route::put('admin/koleksi/{id}', [KoleksiController::class, 'update'])->name('readadminkoleksi.update');
 Route::delete('admin/{id}/destroy', [KoleksiController::class, 'destroy'])->name('koleksi.destroy');
 
-// Route::post('admin/readadminkoleksi/store', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
-// Route::middleware(['auth'])->group(function () {
-//     Route::post('admin/koleksi/readadminkoleksi', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
-// });
 
-// Route::resource('readadminkoleksi', [KoleksiController::class]);
-// Route::post('readadminkoleksi', [KoleksiController::class, 'store'])->name('readadminkoleksi.store');
-// Route::get('readadminkoleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi');
-// Route::get('readadminkoleksi', [KoleksiController::class, 'store'])->name('admin.read_adminkoleksi');
-
-
-// Route untuk Manajemen Koleksi (ubah menjadi readadmintiket)
+// -----------------------------------------
+// Admin Tiket Routes
+// -----------------------------------------
 Route::get('admin/admintiket/readadminkoleksi', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');
 
 

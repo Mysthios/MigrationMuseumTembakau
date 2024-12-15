@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
+    /** 
+     * Run the migrations. 
      */
     public function up()
 {
@@ -15,11 +15,11 @@ return new class extends Migration
         $table->id('acara_id');
         $table->unsignedBigInteger('admin_id');
         $table->string('nama_acara');
-        $table->date('tanggal_mulai_acara');
-        $table->date('tanggal_selesai_acara');
+        $table->date('tanggal_acara');
+        $table->string('deskripsi_singkat');
         $table->text('deskripsi');
-        $table->string('status');
-        $table->string('gambar_banner');
+        $table->string('gambar');
+        $table->string('google_map_url')->nullable();
         $table->timestamps();
 
         $table->foreign('admin_id')->references('admin_id')->on('admins')->onDelete('cascade');
