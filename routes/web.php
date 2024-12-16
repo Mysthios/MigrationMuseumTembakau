@@ -53,7 +53,7 @@ Route::middleware([IsAdmin::class])->group(function () {
     Route::put('admin/koleksi/{id}', [KoleksiController::class, 'update'])->name('admin.koleksi.update');
     Route::delete('admin/koleksi/{id}', [KoleksiController::class, 'destroy'])->name('admin.koleksi.destroy');
 
-    // 
+    //  
     Route::get('admin/admintiket/readadminkoleksi', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');
 
     //
