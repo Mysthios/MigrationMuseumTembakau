@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\User; // Tidak mengganti nama model
+use App\Models\User; 
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,7 +19,6 @@ class UserController extends Controller
 
     public function addUser(Request $request)
     {
-        // Validasi data
         $request->validate([
             'full_name' => 'required|string',
             'email' => 'required|email|unique:users',
@@ -30,11 +29,8 @@ class UserController extends Controller
         ]);
 
         try {
-            // Menghitung total harga berdasarkan tipe tiket
             $ticket_price = $request->ticket_type === 'dewasa' ? 15000 : 5000;
             $total_price = $ticket_price * $request->ticket_quantity;
-
-            // Menyimpan data ke database
             $new_user = new User();
             $new_user->name = $request->full_name;
             $new_user->email = $request->email;
@@ -43,7 +39,7 @@ class UserController extends Controller
             $new_user->ticket_quantity = $request->ticket_quantity;
             $new_user->total_price = $total_price;
             $new_user->purchase_date = now();
-            $new_user->visit_date = $request->visit_date; // Tambahkan ini
+            $new_user->visit_date = $request->visit_date;
             $new_user->save();
 
             return redirect('/tiket')->with('success', 'Tiket berhasil ditambahkan');

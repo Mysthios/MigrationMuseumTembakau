@@ -17,11 +17,8 @@ use App\Http\Middleware\IsAdmin;
 // Public Routes 
 // -----------------------------------------
 Route::get('/', [InfoMuseumController::class, 'index'])->name('info-museum.index'); // Halaman utama (Info Museum)
-
-Route::get('/acara', [AcaraController::class, 'index'])->name('acara.index'); // Halaman acara
-// Route::get('/program-donasi', [DonationController::class, 'index'])->name('program-donasi.index'); 
+Route::get('/acara', [AcaraController::class, 'index'])->name('acara.index'); 
 Route::get('/program-donasi', [DonationController::class, 'index'])->name('program_donasi.index'); // Halaman program donasi
-
 Route::get('/tiket', [TiketController::class, 'index'])->name('tiket.index'); // Halaman tiket
 
 // -----------------------------------------
@@ -30,8 +27,6 @@ Route::get('/tiket', [TiketController::class, 'index'])->name('tiket.index'); //
 // Route untuk halaman login
 Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login.form');
 Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login');
-// Route untuk halaman dashboard setelah login
-// Route::get('admin/index', [AdminController::class, 'dashboard'])->name('admin.dashboard.index');
 
 // -----------------------------------------
 // Admin Routes
