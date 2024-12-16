@@ -9,11 +9,8 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        dd('Middleware bekerja1');
-        // Cek apakah user sudah login dan memiliki role admin
-        // if (Auth::check() && Auth::user()->role === 'admin') {
-        //     return $next($request);
-        // }
+        // dd('Middleware bekerja1');
+
 
         if ($request->session()->has('admin_logged_in')) {
             return $next($request);
