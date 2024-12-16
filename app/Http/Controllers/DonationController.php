@@ -11,7 +11,8 @@ class DonationController extends Controller
     // Tampilkan form donasi untuk user
     public function index()
     {
-        return view('program_donasi.index');
+        $donations= Donation::all(); 
+        return view('program_donasi.index', compact('donations'));
     }
 
     // Simpan data donasi

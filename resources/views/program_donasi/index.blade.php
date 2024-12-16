@@ -62,7 +62,7 @@
 <div class="w-full md:w-1/2 h-auto bg-gradient-to-br from-[#f1e0b5] to-[#d8c29e] rounded-2xl shadow-xl overflow-hidden mx-auto transform transition-all duration-500 hover:scale-105 hover:shadow-2xl animate__animated animate__fadeIn">
     <div class="p-8 bg-white">
         <h3 class="text-4xl font-extrabold mb-6 text-center text-[#8b5e34] tracking-wide">Program Donasi</h3>
-        <form id="donation-form" action="{{ route('donations.store') }}" method="POST" class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-md">
+        <form id="donation-form" action="{{ route('program-donasi.store') }}" method="POST" class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-md">
             @csrf
             <div class="mb-4">
                 <label for="donor-name" class="block text-lg font-semibold text-gray-700 mb-2">Nama Donatur</label>
