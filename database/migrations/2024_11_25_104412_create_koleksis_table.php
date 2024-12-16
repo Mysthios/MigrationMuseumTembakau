@@ -12,9 +12,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('koleksis', function (Blueprint $table) {
-            $table->id();
+            $table->id('koleksi_id');
             $table->unsignedBigInteger('admin_id');  // Kolom foreign key yang mengarah ke tabel admins
             $table->string('judul');
+            $table->string('deskripsi_singkat');
             $table->text('deskripsi');
             $table->string('gambar')->nullable();
             $table->timestamps();

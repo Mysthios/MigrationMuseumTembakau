@@ -10,16 +10,16 @@
     <div class="container mx-auto px-6">
         <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             onclick="document.getElementById('addKoleksi').classList.remove('hidden')">
-            Tambah Koleksi
+            Tambah koleksi
         </button>
-        <h3 class="text-gray-600 text-2xl font-medium">Koleksi Museum</h3>
+        <h3 class="text-gray-600 text-2xl font-medium">koleksi Museum</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             @if ($koleksis->isEmpty())
             <p>Tidak ada koleksi yang tersedia saat ini.</p>
             @else
                 @foreach ($koleksis as $koleksi)
                 <div class="w-full max-w-sm mx-auto rounded-lg shadow-md overflow-hidden bg-white relative">
-                    <!-- Bagian Gambar -->
+                    <!-- Bagian Gambar --> 
                     <div class="relative h-56 w-full">
                         <div class="absolute inset-0 bg-cover bg-center" 
                             style="background-image: url('{{ asset('storage/' . $koleksi->gambar) }}');">
@@ -34,8 +34,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 3.487l3.656 3.656m-2.121-2.121L7.5 17.94v3.535h3.535l10.293-10.293a1.5 1.5 0 000-2.121l-3.656-3.656a1.5 1.5 0 00-2.121 0z"></path>
                             </svg>
                         </button>
-                        <!-- Tombol Delete -->
-                        <form action="{{ route('koleksi.destroy', $koleksi->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus koleksi ini?')">
+                        <!-- Tombol Delete --> 
+                        <form action="{{ route('admin.koleksi.destroy', $koleksi->koleksi_id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus koleksi ini?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="p-2 rounded bg-red-600 text-white shadow-lg hover:bg-red-500 focus:outline-none">
@@ -45,10 +45,11 @@
                             </button>
                         </form>
                     </div>
-                    <!-- Detail Koleksi -->
+                    <!-- Detail koleksi -->
                     <div class="px-5 py-4">
-                        <h3 class="text-gray-700 uppercase font-semibold text-lg">{{ $koleksi->judul }}</h3>
-                        <p class="text-gray-500 text-sm mt-1">{{ $koleksi->deskripsi }}</p>
+                        <h3 class="text-gray-700 uppercase font-semibold text-lg">{{ $koleksi->nama_koleksi }}</h3>
+                        <p class="text-gray-500 text-sm mt-1">{{ $koleksi->deskripsi_singkat}}</p>
+                        <a href="{{ route('koleksi.detail', $koleksi->koleksi_id) }}" class="text-blue-500 hover:underline">Baca Selengkapnya</a>
                     </div>
                 </div>                    
                 @endforeach
@@ -57,11 +58,12 @@
     </div>
 </main>
 
+
 {{-- Pop up tambah koleksi --}}
 <div id="addKoleksi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white p-6 rounded shadow-md w-96 relative overflow-hidden">
         <h2 class="text-lg font-bold mb-4">Tambah Koleksi</h2>
-        <form action="{{ route('readadminkoleksi.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.koleksi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label for="admin_id" class="block text-sm">Admin ID</label>
@@ -70,6 +72,10 @@
             <div class="mb-4">
                 <label for="judul" class="block text-sm">Nama Koleksi</label>
                 <input type="text" id="judul" name="judul" class="border p-2 w-full rounded">
+            </div>
+            <div class="mb-4">
+                <label for="deskripsi_singkat" class="block text-sm">Deskripsi Singkat Koleksi</label>
+                <textarea id="deskripsi_singkat" name="deskripsi_singkat" class="border p-2 w-full rounded"></textarea>
             </div>
             <div class="mb-4">
                 <label for="deskripsi" class="block text-sm">Deskripsi Koleksi</label>
@@ -88,7 +94,7 @@
     </div>
 </div>
 
-{{-- Pop up edit koleksi --}}
+{{-- Pop up edit koleksi --}} 
 <div id="editKoleksi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white p-6 rounded shadow-md w-96 relative overflow-hidden">
         <h2 class="text-lg font-bold mb-4">Edit Koleksi</h2>
@@ -98,6 +104,10 @@
             <div class="mb-4">
                 <label for="edit_judul" class="block text-sm">Nama Koleksi</label>
                 <input type="text" id="edit_judul" name="judul" class="border p-2 w-full rounded">
+            </div>
+            <div class="mb-4">
+                <label for="edit_deskripsi_singkat" class="block text-sm">Deskripsi Singkat Koleksi</label>
+                <textarea id="edit_deskripsi_singkat" name="deskripsi_singkat" class="border p-2 w-full rounded"></textarea>
             </div>
             <div class="mb-4">
                 <label for="edit_deskripsi" class="block text-sm">Deskripsi Koleksi</label>
@@ -116,10 +126,13 @@
 <script>
     function openEditKoleksi(koleksi) {
     const editForm = document.getElementById('editForm');
-    editForm.action = `/admin/koleksi/${koleksi.id}`;
-    document.getElementById('edit_judul').value = koleksi.judul;
-    document.getElementById('edit_deskripsi').value = koleksi.deskripsi;
-    document.getElementById('editKoleksi').classList.remove('hidden');
+        editForm.action = `/admin/koleksi/${koleksi.koleksi_id}`;
+
+        document.getElementById('edit_judul').value = koleksi.judul;
+        document.getElementById('edit_deskripsi').value = koleksi.deskripsi;
+        document.getElementById('edit_deskripsi_singkat').value = koleksi.deskripsi_singkat;
+
+        document.getElementById('editKoleksi').classList.remove('hidden');
 }
 
 </script>

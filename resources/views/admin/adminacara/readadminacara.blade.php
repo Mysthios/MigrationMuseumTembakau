@@ -12,14 +12,14 @@
             onclick="document.getElementById('addAcara').classList.remove('hidden')">
             Tambah Acara
         </button>
-        <h3 class="text-gray-600 text-2xl font-medium">acara Museum</h3>
+        <h3 class="text-gray-600 text-2xl font-medium">Acara Museum</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             @if ($acaras->isEmpty())
             <p>Tidak ada acara yang tersedia saat ini.</p>
             @else
                 @foreach ($acaras as $acara)
                 <div class="w-full max-w-sm mx-auto rounded-lg shadow-md overflow-hidden bg-white relative">
-                    <!-- Bagian Gambar -->
+                    <!-- Bagian Gambar --> 
                     <div class="relative h-56 w-full">
                         <div class="absolute inset-0 bg-cover bg-center" 
                             style="background-image: url('{{ asset('storage/' . $acara->gambar) }}');">
@@ -35,7 +35,7 @@
                             </svg>
                         </button>
                         <!-- Tombol Delete --> 
-                        <form action="{{ route('acara.destroy', $acara->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus acara ini?')">
+                        <form action="{{ route('admin.acara.destroy', $acara->acara_id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus acara ini?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="p-2 rounded bg-red-600 text-white shadow-lg hover:bg-red-500 focus:outline-none">
@@ -48,8 +48,8 @@
                     <!-- Detail acara -->
                     <div class="px-5 py-4">
                         <h3 class="text-gray-700 uppercase font-semibold text-lg">{{ $acara->nama_acara }}</h3>
-                        <p class="text-gray-500 text-sm mt-1">{{ $acara->deskripsi }}</p>
-                        <a href="{{ route('acara.detail', $acara->id) }}" class="text-blue-500 hover:underline">Baca Selengkapnya</a>
+                        <p class="text-gray-500 text-sm mt-1">{{ $acara->deskripsi_singkat}}</p>
+                        <a href="{{ route('acara.detail', $acara->acara_id) }}" class="text-blue-500 hover:underline">Baca Selengkapnya</a>
                     </div>
                 </div>                    
                 @endforeach
@@ -58,12 +58,11 @@
     </div>
 </main>
 
-@dd($acaras)
 {{-- Pop up tambah acara --}}
 <div id="addAcara" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white p-6 rounded shadow-md w-96 relative overflow-hidden">
         <h2 class="text-lg font-bold mb-4">Tambah Acara</h2>
-        <form action="{{ route('readadminacara.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.acara.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label for="admin_id" class="block text-sm">Admin ID</label>
@@ -75,7 +74,7 @@
             </div>
             <div class="mb-4">
                 <label for="tanggal_acara" class="block text-sm">Tanggal Acara</label>
-                <input type="text" id="tanggal_acara" name="tanggal_acara" class="border p-2 w-full rounded">
+                <input type="date" id="tanggal_acara" name="tanggal_acara" class="border p-2 w-full rounded">
             </div>
             <div class="mb-4">
                 <label for="deskripsi_singkat" class="block text-sm">Deskripsi Singkat Acara</label>
@@ -87,7 +86,7 @@
             </div>
             <div class="mb-4">
                 <label for="google_map_url" class="block text-sm">Gmap Url</label>
-                <textarea id="google_map_url" name="google_map_url" class="border p-2 w-full rounded"></textarea>
+                <input id="google_map_url" name="google_map_url" class="border p-2 w-full rounded"></input>
             </div>
             <div class="mb-4">
                 <label for="gambar" class="block text-sm">Gambar Acara</label>
@@ -117,9 +116,21 @@
                 <label for="edit_deskripsi" class="block text-sm">Deskripsi Acara</label>
                 <textarea id="edit_deskripsi" name="deskripsi" class="border p-2 w-full rounded"></textarea>
             </div>
+            <div class="mb-4">
+                <label for="edit_tanggal_acara" class="block text-sm">Tanggal Acara</label>
+                <input type="date" id="edit_tanggal_acara" name="tanggal_acara" class="border p-2 w-full rounded">
+            </div>
+            <div class="mb-4">
+                <label for="edit_deskripsi_singkat" class="block text-sm">Deskripsi Singkat Acara</label>
+                <textarea id="edit_deskripsi_singkat" name="deskripsi_singkat" class="border p-2 w-full rounded"></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="edit_google_map_url" class="block text-sm">Gmap Url</label>
+                <input id="edit_google_map_url" name="google_map_url" class="border p-2 w-full rounded"></input>
+            </div>
             <div class="flex justify-end space-x-2">
                 <button type="button" class="px-4 py-2 bg-gray-300 rounded"
-                    onclick="document.getElementById('editacara').classList.add('hidden')">Batal</button>
+                    onclick="document.getElementById('editAcara').classList.add('hidden')">Batal</button>
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Simpan</button>
             </div>
         </form>
@@ -129,12 +140,18 @@
 
 <script>
     function openEditAcara(acara) {
-    const editForm = document.getElementById('editForm');
-    editForm.action = `/admin/acara/${acara.id}`;
-    document.getElementById('edit_nama_acara').value = acara.nama_acara;
-    document.getElementById('edit_deskripsi').value = acara.deskripsi;
-    document.getElementById('editAcara').classList.remove('hidden');
-}
+        const editForm = document.getElementById('editForm');
+        editForm.action = `/admin/acara/${acara.acara_id}`;
+        
+        document.getElementById('edit_nama_acara').value = acara.nama_acara;
+        document.getElementById('deskripsi').value = acara.deskripsi;
+        document.getElementById('tanggal_acara').value = acara.tanggal_acara;
+        document.getElementById('deskripsi_singkat').value = acara.deskripsi_singkat;
+        document.getElementById('google_map_url').value = acara.google_map_url;
+
+        document.getElementById('editAcara').classList.remove('hidden');
+    }
+
 </script>
 
 @endsection 

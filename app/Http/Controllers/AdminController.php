@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Koleksi;
+use App\Models\Acara;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -48,7 +49,8 @@ class AdminController extends Controller
     // Menampilkan halaman Manajemen Acara (ubah menjadi readAdminAcara)
     public function readAdminAcara()
     {
-        return view('admin.adminacara.readadminacara'); // Halaman untuk melihat acara
+        $acaras = Acara::all(); // Ambil semua data acara
+        return view('admin.adminacara.readadminacara', compact('acaras'));
     }
 
     public function readAdminKoleksi()

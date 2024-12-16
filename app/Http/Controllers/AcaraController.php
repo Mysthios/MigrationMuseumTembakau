@@ -6,27 +6,26 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\File;
 use App\Models\Acara;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AcaraController extends Controller
 {
-    // Menampilkan data acara untuk user biasa 
     public function indexAdmin()
     {
-        $acaras = Acara::all(); // Ambil semua data acara
-        return view('acara.index', compact('acaras')); // Tampilkan view acara
+        $acaras = Acara::all();
+        return view('acara.index', ['acaras' => $acaras]);
     }
+
 
     public function create() {
         $acaras = Acara::all();
-        dd($acaras); // Debugging
         return view('admin.adminacara.readadminacara', compact('acaras'));
     }
 
-    // Menyimpan data acara baru 
+
     public function store(Request $request)
     {
-        $admin = Admin::find(1);  //Misalnya mencari admin dengan ID 1
-
+        $admin = Admin::find(1);  
         if ($admin) {
             $acara = new Acara();
             $acara->admin_id = $admin->admin_id; 
@@ -38,14 +37,13 @@ class AcaraController extends Controller
             $acara->google_map_url = $request->google_map_url;
         }
         try {
-
             $request->validate([
                 'admin_id' => 'required|exists:admins,admin_id',
                 'nama_acara' => 'required|string|max:255',
                 'tanggal_acara' => 'required|date',
                 'deskripsi_singkat' => 'required|string|max:255',
                 'deskripsi' => 'required',
-                'gambar' => 'required|image',
+                'gambar' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048',
                 'google_map_url' => 'nullable|url',
             ]);
 
@@ -55,86 +53,89 @@ class AcaraController extends Controller
             }
 
             Acara::create([
-                'admin_id' => $request->admin_id,  //Tambahkan admin_id ke dalam data yang disimpan
+                'admin_id' => $request->admin_id,  
                 'judul' => $request->judul,
+                'nama_acara' => $request->nama_acara,
                 'tanggal_acara' => $request->tanggal_acara,
                 'deskripsi_singkat' => $request->deskripsi_singkat,
                 'deskripsi' => $request->deskripsi,
                 'google_map_url' => $request->google_map_url,
                 'gambar' => $gambarPath
             ]);
-    
-            return redirect()->route('admin.adminacara.readadminacara')->with('success', 'Acara berhasil ditambahkan!');
-            
+
+            return redirect()->route('admin.read_adminacara')->with('success', 'Acara berhasil ditambahkan!');
         } catch (\Exception $e) {
-            //Debug error jika terjadi masalah 
             dd($e->getMessage());
         }
-        
     }
 
 
     public function showAcara()
     {
-        $acaras = Acara::all(); // Ambil data acara berdasarkan ID
-        return view('acara.index', compact('acaras')); // Tampilkan detail acara
+        $acaras = Acara::all(); 
+        return view('acara.index', compact('acaras')); 
     }
+
+    public function detailAcara($id)
+    {
+        $acara = Acara::where('acara_id', $id)->get()->first(); 
+        return view('acara.detail', compact('acara'));
+    }
+    
 
 
     public function edit($id)
     {
-        $acara = Acara::find($id); // Mengambil data berdasarkan ID
+        $acara = Acara::find($id);
 
         if (!$acara) {
             return redirect()->route('admin.adminacara.readadminacara')->with('error', 'Data tidak ditemukan.');
         }
 
-        return view('acara.edit', compact('acara')); // Tampilkan form edit
+        return view('acara.edit', compact('acara'));
     }
 
-    // Memperbarui data acara
+
     public function update(Request $request, $id)
     {
         $request->validate([
-            'admin_id' => 'required|exists:admins,admin_id',
             'nama_acara' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
             'tanggal_acara' => 'required|date',
             'deskripsi_singkat' => 'required|string|max:255',
-            'deskripsi' => 'required',
-            'gambar' => 'required|image',
-            'google_map_url' => 'nullable|url'
+            'google_map_url' => 'nullable|url',
         ]);
-
-        $acara = Acara::findOrFail($id); // Cari data acara berdasarkan ID
-        
-        $acara->nama_acara = $request->input('nama_acara');
-        $acara->tanggal_acara = $request->input('tanggal_acara');
-        $acara->deskripsi_singkat = $request->input('deskripsi_singkat');
-        $acara->deskripsi = $request->input('deskripsi');
-        $acara->google_map_url = $request->input('google_map_url');
     
-        if ($request->hasFile('gambar')) {
-            $filePath = $request->file('gambar')->store('acara', 'public');
-            $acara->gambar = $filePath;
-        }
+        $acara = Acara::findOrFail($id);
+    
+        $acara->nama_acara = $request->nama_acara;
+        $acara->deskripsi = $request->deskripsi;
+        $acara->tanggal_acara = $request->tanggal_acara;
+        $acara->deskripsi_singkat = $request->deskripsi_singkat;
+        $acara->google_map_url = $request->google_map_url;
     
         $acara->save();
-
-        return redirect()->route('admin.read_adminacara')->with('success', 'Acara berhasil diperbarui!');
+    
+        return redirect()->back()->with('success', 'Acara berhasil diperbarui!');
     }
+    
 
-    // Menghapus acara
+
     public function destroy($id)
     {
+        if (!$id) {
+            return redirect()->back()->with('error', 'ID acara tidak ditemukan.');
+        }
+        $acara = Acara::find($id);
+        if (!$acara) {
+            return redirect()->back()->with('error', 'Acara tidak ditemukan.');
+        }
         try {
-            $acara = Acara::findOrFail($id);
-
             File::delete($acara->gambar);
-
-            $acara->delete();
+            $acara->delete(); 
             return redirect()->back()->with('success', 'Acara berhasil dihapus!');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 }

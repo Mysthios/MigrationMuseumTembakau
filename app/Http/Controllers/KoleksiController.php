@@ -11,37 +11,36 @@ use Illuminate\Support\Facades\File;
 
 class KoleksiController extends Controller
 {
-
-    public function indexadmin()
+    public function indexAdmin()
     {
         $koleksis = Koleksi::all();
-        return view('admin.adminkoleksi.readadminkoleksi', compact('koleksis')); // Menggunakan 'koleksis' untuk konsistensi
+        return view('koleksi.index', ['koleksis' => $koleksis]);
     }
 
 
     public function create() {
-        return view('koleksi.create');
+        $koleksis = Koleksi::all();
+        return view('admin.adminkoleksi.readadminkoleksi', compact('koleksis'));
     }
+
 
     public function store(Request $request)
     {
-            //Mengambil admin yang sedang login
-        $admin = Admin::find(1);  //Misalnya mencari admin dengan ID 1
-        
+        $admin = Admin::find(1);
         if ($admin) {
-                //Pastikan kita menggunakan relasi yang benar
             $koleksi = new Koleksi();
             $koleksi->judul = $request->judul;
+            $koleksi->deskripsi_singkat = $request->deskripsi_singkat;
             $koleksi->deskripsi = $request->deskripsi;
-            $koleksi->admin_id = $admin->admin_id; //Pastikan menggunakan admin_id dengan benar
+            $koleksi->admin_id = $admin->admin_id; 
         }
         try {
-                //Validasi input
             $request->validate([
                 'admin_id' => 'required|exists:admins,admin_id', 
                 'judul' => 'required',
+                'deskripsi_singkat' => 'required|string|max:255',
                 'deskripsi' => 'required',
-                'gambar' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048'
+                'gambar' => 'required|image|mimes:png,jpg,jpeg,webp|max:2048'
             ]);
 
             $gambarPath = null;
@@ -52,27 +51,34 @@ class KoleksiController extends Controller
             Koleksi::create([
                 'admin_id' => $request->admin_id, 
                 'judul' => $request->judul,
+                'deskripsi_singkat' => $request->deskripsi_singkat,
                 'deskripsi' => $request->deskripsi,
                 'gambar' => $gambarPath
             ]);
 
-            return redirect()->route('admin.adminkoleksi.readadminkoleksi')->with('success', 'Koleksi berhasil ditambahkan!');
+            return redirect()->route('admin.read_adminkoleksi')->with('success', 'Koleksi berhasil ditambahkan!');
         } catch (\Exception $e) {
-                //Debug error jika terjadi masalah 
             dd($e->getMessage());
         }
-
     }
 
     public function showKoleksi()
     {
-        $koleksis = Koleksi::all(); // Ambil semua koleksi dari database
+        $koleksis = Koleksi::all();
         return view('koleksi.index', compact('koleksis'));
     }
 
+
+    public function detailKoleksi($id)
+    {
+        $koleksi = Koleksi::where('koleksi_id', $id)->get()->first();
+        return view('koleksi.detail', compact('koleksi'));
+    }
+
+
     public function edit($id)
     {
-        $koleksi = Koleksi::find($id); // Mengambil data berdasarkan ID
+        $koleksi = Koleksi::find($id);
 
         if (!$koleksi) {
             return redirect()->route('admin.adminkoleksi.readadminkoleksi')->with('error', 'Data tidak ditemukan.');
@@ -83,40 +89,39 @@ class KoleksiController extends Controller
 
 
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'judul' => 'required|string|max:255',
-        'deskripsi' => 'nullable|string',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-    ]);
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'deskripsi_singkat' => 'required|string|max:255'
+        ]);
+        $koleksi = Koleksi::findOrFail($id);
 
-    $koleksi = Koleksi::findOrFail($id);
+        $koleksi->judul = $request->input('judul');
+        $koleksi->deskripsi = $request->input('deskripsi');
+        $koleksi->deskripsi_singkat = $request->input('deskripsi_singkat');
 
-    $koleksi->judul = $request->input('judul');
-    $koleksi->deskripsi = $request->input('deskripsi');
+        $koleksi->save();
 
-    if ($request->hasFile('gambar')) {
-        $filePath = $request->file('gambar')->store('koleksi', 'public');
-        $koleksi->gambar = $filePath;
+        return redirect()->back()->with('success', 'Koleksi berhasil diperbarui.');
     }
-
-    $koleksi->save();
-
-    return redirect()->route('admin.read_adminkoleksi')->with('success', 'Koleksi berhasil diperbarui.');
-}
 
 
     public function destroy($id)
     {
+        if (!$id) {
+            return redirect()->back()->with('error', 'ID koleksi tidak ditemukan.');
+        }
+        $koleksi = Koleksi::find($id);
+        if (!$koleksi) {
+            return redirect()->back()->with('error', 'koleksi tidak ditemukan.');
+        }
         try {
-            $koleksi = Koleksi::findOrFail($id);
-
-            File::delete($koleksi->image);
-
-            $koleksi->delete();
-            return redirect()->back()->with('success', 'Koleksi berhasil dihapus!');
+            File::delete($koleksi->gambar); 
+            $koleksi->delete(); 
+            return redirect()->back()->with('success', 'koleksi berhasil dihapus!');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 

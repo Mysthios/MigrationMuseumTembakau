@@ -27,7 +27,7 @@ Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admi
 // Route untuk mengirimkan data login
 Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login');
 // Route untuk halaman dashboard setelah login
-Route::get('admin/index', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('admin/index', [AdminController::class, 'dashboard'])->name('admin.dashboard.index');
 
 // -----------------------------------------
 // Admin Routes
@@ -43,18 +43,21 @@ Route::get('admin/adminkoleksi/readadminkoleksi', [AdminController::class, 'read
 // Admin Acara Routes
 // -----------------------------------------
 Route::get('acara', [AcaraController::class, 'showAcara'])->name('acara.show'); // User
+Route::get('acara/{id}', [AcaraController::class, 'detailAcara'])->name('acara.detail'); // User
 Route::get('admin/acara', [AcaraController::class, 'indexAdmin'])->name('admin.acara.index'); // Halaman utama admin acara
 Route::post('admin/acara/store', [AcaraController::class, 'store'])->name('admin.acara.store');
 Route::get('admin/acara/{id}/edit', [AcaraController::class, 'edit'])->name('admin.acara.edit'); // Form edit acara
 Route::put('admin/acara/{id}', [AcaraController::class, 'update'])->name('admin.acara.update'); // Memperbarui data acara
-Route::delete('admin/acara/{id}', [AcaraController::class, 'destroy'])->name('admin.acara.destroy'); // Menghapus acara
+Route::delete('admin/acara/{id}', [AcaraController::class, 'destroy'])->name('admin.acara.destroy');
+
 
 // -----------------------------------------
 // Admin Koleksi Routes
 // ----------------------------------------- 
 Route::get('koleksi', [KoleksiController::class, 'showKoleksi'])->name('koleksi.show'); // User
+Route::get('koleksi/{id}', [KoleksiController::class, 'detailKoleksi'])->name('koleksi.detail'); // User
 Route::get('admin/koleksi', [KoleksiController::class, 'indexAdmin'])->name('admin.koleksi.index'); // Halaman utama admin koleksi
-Route::post('admin/koleksi', [KoleksiController::class, 'store'])->name('admin.koleksi.store'); // Menyimpan data koleksi baru
+Route::post('admin/koleksi/store', [KoleksiController::class, 'store'])->name('admin.koleksi.store'); // Menyimpan data koleksi baru
 Route::get('admin/koleksi/{id}/edit', [KoleksiController::class, 'edit'])->name('admin.koleksi.edit'); // Form edit koleksi
 Route::put('admin/koleksi/{id}', [KoleksiController::class, 'update'])->name('admin.koleksi.update'); // Memperbarui data koleksi
 Route::delete('admin/koleksi/{id}', [KoleksiController::class, 'destroy'])->name('admin.koleksi.destroy'); // Menghapus koleksi
