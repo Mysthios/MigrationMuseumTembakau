@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProgramDonasiController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\InfoMuseumController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DonationController;
  
@@ -101,7 +102,7 @@ Route::delete('/admin/donations/{id}', [DonationController::class, 'destroy'])->
 
 
 
-
+Route::get('admin/adminprogramdonasi/readadmindonasi', [AdminController::class, 'readadmindonasi'])->name('admin.read_adminacara');
 
 Route::post('/donations', [DonationController::class, 'store'])->name('donations.store');
 Route::get('/program-donasi', [DonationController::class, 'index'])->name('donations.index');
@@ -112,4 +113,27 @@ Route::prefix('admin')->group(function () {
     Route::get('/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
     Route::delete('/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
 });
+
+
+Route::get('/donation-form', [DonationController::class, 'showForm'])->name('donation.form');
+Route::post('/donation-submit', [DonationController::class, 'store'])->name('donation.store');
+
+Route::get('/admin/donations', [DonationController::class, 'index'])->name('admin.donations');
+Route::delete('/admin/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+
+
+
+
+// Route::get('/admin/adminprogramdonasi/readadmindonasi', [DonationController::class, 'index'])->name('admin.read_admindonasi');
+Route::post('/donations', [DonationController::class, 'store'])->name('donations.store');
+Route::get('/program-donasi', [DonationController::class, 'index'])->name('donations.index');
+Route::post('/program-donasi', [DonationController::class, 'store'])->name('donations.store');
+
+// Admin Routes
+Route::prefix('admin')->group(function () {
+    Route::get('/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
+    Route::delete('/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+});
+
+
 
