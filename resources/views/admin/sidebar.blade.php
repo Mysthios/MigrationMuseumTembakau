@@ -18,9 +18,15 @@
             </a>    
         </li>
         <li>
+<<<<<<< HEAD
             <a href="{{ route('admin.read_adminprogramdonasi') }}" class="block px-4 py-2 rounded-md hover:bg-gray-700">
                 Manajemen Donasi
             </a>
+=======
+            <a href="{{ route('admin.adminprogramdonasi.readadmindonasi') }}" class="block px-4 py-2 rounded-md hover:bg-gray-700">
+                Manajemen Tiket
+            </a>    
+>>>>>>> 5fb2470 (update donasi)
         </li>
     </ul>
 </div>

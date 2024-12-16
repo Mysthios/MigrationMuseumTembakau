@@ -62,71 +62,72 @@
 <div class="w-full md:w-1/2 h-auto bg-gradient-to-br from-[#f1e0b5] to-[#d8c29e] rounded-2xl shadow-xl overflow-hidden mx-auto transform transition-all duration-500 hover:scale-105 hover:shadow-2xl animate__animated animate__fadeIn">
     <div class="p-8 bg-white">
         <h3 class="text-4xl font-extrabold mb-6 text-center text-[#8b5e34] tracking-wide">Program Donasi</h3>
-        <form id="donation-form">
-            <!-- Nama Donatur -->
-            <label for="donor-name" class="block text-lg font-semibold text-gray-700 mb-2">Nama Donatur</label>
-            <input
-                type="text"
-                id="donor-name"
-                placeholder="Nama Lengkap"
-                class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
-            />
-
-            <!-- Email -->
-            <label for="email" class="block text-lg font-semibold text-gray-700 mb-2">Email</label>
-            <input
-                type="email"
-                id="email"
-                placeholder="Alamat Email"
-                class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
-            />
-
-            <!-- Nominal Donasi -->
-            <label for="donation-amount" class="block text-lg font-semibold text-gray-700 mb-2">Nominal Donasi</label>
-            <select
-                id="donation-amount"
-                class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
-            >
-                <option value="50000">Rp50.000</option>
-                <option value="100000">Rp100.000</option>
-                <option value="200000">Rp200.000</option>
-                <option value="500000">Rp500.000</option>
-                <option value="custom">Lainnya</option>
-            </select>
-
-            <!-- Nominal Custom -->
-            <div id="custom-amount-container" class="hidden mt-2">
-                <label for="custom-amount" class="block text-lg font-semibold text-gray-700 mb-2">Nominal Lainnya</label>
-                <input
-                    type="number"
-                    id="custom-amount"
-                    placeholder="Masukkan nominal"
-                    class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
+        <form id="donation-form" action="{{ route('donations.store') }}" method="POST" class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-md">
+            @csrf
+            <div class="mb-4">
+                <label for="donor-name" class="block text-lg font-semibold text-gray-700 mb-2">Nama Donatur</label>
+                <input 
+                    type="text" 
+                    id="donor-name" 
+                    name="donor_name" 
+                    placeholder="Nama Lengkap" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
                 />
             </div>
-
-            <!-- Catatan -->
-            <label for="notes" class="block text-lg font-semibold text-gray-700 mb-2">Catatan (Opsional)</label>
-            <textarea
-                id="notes"
-                placeholder="Tulis pesan atau dedikasi"
-                class="w-full px-6 py-4 mb-6 rounded-xl bg-gray-50 border-2 border-gray-300 text-gray-700 focus:ring-2 focus:ring-[#c09858] focus:border-[#c09858] outline-none transition duration-300 transform hover:scale-105 hover:bg-gray-100 shadow-md"
-            ></textarea>
-
-            <!-- Submit Button -->
-            <button
-                type="submit"
-                class="w-full py-4 bg-[#8b5e34] text-white font-semibold text-xl rounded-xl hover:bg-[#704927] transition-all duration-300 focus:ring-2 focus:ring-[#8b5e34] focus:outline-none transform hover:scale-105 shadow-lg"
-            >
-                DONASI SEKARANG
-            </button>
+        
+            <div class="mb-4">
+                <label for="email" class="block text-lg font-semibold text-gray-700 mb-2">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="Alamat Email" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                />
+            </div>
+        
+            <div class="mb-4">
+                <label for="donation-amount" class="block text-lg font-semibold text-gray-700 mb-2">Nominal Donasi</label>
+                <select 
+                    id="donation-amount" 
+                    name="donation_amount" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                >
+                    <option value="50000">Rp50.000</option>
+                    <option value="100000">Rp100.000</option>
+                    <option value="200000">Rp200.000</option>
+                    <option value="500000">Rp500.000</option>
+                    <option value="1000000">Rp1.000.000</option>
+                </select>
+            </div>
+        
+            <div class="mb-4">
+                <label for="notes" class="block text-lg font-semibold text-gray-700 mb-2">Pesan atau Dedikasi</label>
+                <textarea 
+                    id="notes" 
+                    name="notes" 
+                    placeholder="Tulis pesan atau dedikasi" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    rows="4"
+                ></textarea>
+            </div>
+        
+            <div class="flex justify-end">
+                <button 
+                    type="submit" 
+                    class="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                    DONASI SEKARANG
+                </button>
+            </div>
         </form>
-    </div>
-</div>
+        
 
 
-
-<!-- Popup for confirmation -->
+{{-- <!-- Popup for confirmation -->
 <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-80 animate__animated animate__fadeIn animate__delay-2s">
         <h3 class="text-xl font-bold mb-4 text-center text-[#c09858]">Detail Donasi</h3>
@@ -181,6 +182,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-</script>
+</script> --}}
 
 @endsection

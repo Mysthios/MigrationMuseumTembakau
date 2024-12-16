@@ -8,8 +8,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProgramDonasiController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\InfoMuseumController;
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\IsAdmin;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\DonationController;
+ 
 
 // -----------------------------------------
 // Public Routes
@@ -87,3 +88,28 @@ Route::post('/add/user', [UserController::class, 'AddUser'])->name('AddUser');
 Route::get('/edit/{id}', [UserController::class, 'loadEditForm']);
 Route::post('/edit/user', [UserController::class, 'EditUser'])->name('EditUser');
 Route::get('/delete/{id}', [UserController::class, 'deleteUser']);
+
+
+
+
+
+Route::get('/donation-form', [DonationController::class, 'showForm'])->name('donation.form');
+Route::post('/donation-submit', [DonationController::class, 'store'])->name('donation.store');
+
+Route::get('/admin/donations', [DonationController::class, 'index'])->name('admin.donations');
+Route::delete('/admin/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+
+
+
+
+
+Route::post('/donations', [DonationController::class, 'store'])->name('donations.store');
+Route::get('/program-donasi', [DonationController::class, 'index'])->name('donations.index');
+Route::post('/program-donasi', [DonationController::class, 'store'])->name('donations.store');
+
+// Admin Routes
+Route::prefix('admin')->group(function () {
+    Route::get('/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
+    Route::delete('/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+});
+
