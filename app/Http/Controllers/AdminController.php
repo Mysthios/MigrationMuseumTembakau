@@ -50,7 +50,7 @@ class AdminController extends Controller
     {
         return view('admin.adminacara.readadminacara'); // Halaman untuk melihat acara
     }
- 
+
     public function readAdminKoleksi()
     {
         $koleksis = Koleksi::all(); // Ambil semua data koleksi

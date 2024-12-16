@@ -18,7 +18,7 @@ return new class extends Migration
         $table->date('tanggal_acara');
         $table->string('deskripsi_singkat');
         $table->text('deskripsi');
-        $table->string('gambar');
+        $table->string('gambar')->nullable();
         $table->string('google_map_url')->nullable();
         $table->timestamps();
 

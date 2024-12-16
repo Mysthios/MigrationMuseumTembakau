@@ -10,14 +10,16 @@ use Illuminate\Http\Request;
 class AcaraController extends Controller
 {
     // Menampilkan data acara untuk user biasa 
-    public function indexadmin()
+    public function indexAdmin()
     {
         $acaras = Acara::all(); // Ambil semua data acara
         return view('acara.index', compact('acaras')); // Tampilkan view acara
     }
 
     public function create() {
-        return view('admin.adminacara.readadminacara');
+        $acaras = Acara::all();
+        dd($acaras); // Debugging
+        return view('admin.adminacara.readadminacara', compact('acaras'));
     }
 
     // Menyimpan data acara baru 
@@ -52,7 +54,7 @@ class AcaraController extends Controller
                 $gambarPath = $request->file('gambar')->store('uploads','public');
             }
 
-            Admin::create([
+            Acara::create([
                 'admin_id' => $request->admin_id,  //Tambahkan admin_id ke dalam data yang disimpan
                 'judul' => $request->judul,
                 'tanggal_acara' => $request->tanggal_acara,
@@ -65,16 +67,16 @@ class AcaraController extends Controller
             return redirect()->route('admin.adminacara.readadminacara')->with('success', 'Acara berhasil ditambahkan!');
             
         } catch (\Exception $e) {
-            //Debug error jika terjadi masalah
+            //Debug error jika terjadi masalah 
             dd($e->getMessage());
         }
         
     }
 
 
-    public function showAcara($id)
+    public function showAcara()
     {
-        $acara = Acara::all(); // Ambil data acara berdasarkan ID
+        $acaras = Acara::all(); // Ambil data acara berdasarkan ID
         return view('acara.index', compact('acaras')); // Tampilkan detail acara
     }
 
@@ -127,7 +129,7 @@ class AcaraController extends Controller
         try {
             $acara = Acara::findOrFail($id);
 
-            File::delete($acara->image);
+            File::delete($acara->gambar);
 
             $acara->delete();
             return redirect()->back()->with('success', 'Acara berhasil dihapus!');

@@ -58,7 +58,7 @@ class KoleksiController extends Controller
 
             return redirect()->route('admin.adminkoleksi.readadminkoleksi')->with('success', 'Koleksi berhasil ditambahkan!');
         } catch (\Exception $e) {
-                //Debug error jika terjadi masalah
+                //Debug error jika terjadi masalah 
             dd($e->getMessage());
         }
 

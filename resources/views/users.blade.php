@@ -49,7 +49,7 @@
                                     <td>{{ $item->ticket_quantity }}</td>
                                     <td>Rp {{ number_format($item->total_price) }}</td>
                                     <td>{{ $item->purchase_date }}</td>
-                                    <td>{{ $item->visit_date }}</td> <!-- Tambahkan ini -->
+                                    <td>{{ $item->visit_date }}</td> <!-- Tambahkan ini --> 
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     

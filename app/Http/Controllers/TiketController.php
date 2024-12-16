@@ -82,7 +82,7 @@ class TiketController extends Controller
         $request->validate([
             'tiket_id' => 'required|exists:tikets,tiket_id',
             'jumlah_pesan' => 'required|integer|min:1',
-            'tanggal_pemesanan' => 'required|date',
+            'tanggal_pemesanan' => 'required|date', 
         ]);
 
         $tiket = Tiket::findOrFail($request->tiket_id);

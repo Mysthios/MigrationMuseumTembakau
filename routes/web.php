@@ -15,12 +15,9 @@ use App\Http\Controllers\TestController;
 // -----------------------------------------
 Route::get('/', [InfoMuseumController::class, 'index'])->name('info-museum.index'); // Halaman utama (Info Museum)
 
-
-// Route::get('/koleksi', [KoleksiController::class, 'index'])->name('koleksi.index'); // Halaman koleksi untuk pengguna biasa
 Route::get('/acara', [AcaraController::class, 'index'])->name('acara.index'); // Halaman acara
 Route::get('/program-donasi', [ProgramDonasiController::class, 'index'])->name('program-donasi.index'); // Halaman program donasi
 Route::get('/tiket', [TiketController::class, 'index'])->name('tiket.index'); // Halaman tiket
-
 
 // -----------------------------------------
 // Login Routes
@@ -31,7 +28,6 @@ Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admi
 Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login');
 // Route untuk halaman dashboard setelah login
 Route::get('admin/index', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
 
 // -----------------------------------------
 // Admin Routes
@@ -44,30 +40,36 @@ Route::get('admin/adminacara/readadminacara', [AdminController::class, 'readAdmi
 Route::get('admin/adminkoleksi/readadminkoleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi');
 
 // -----------------------------------------
+// Admin Acara Routes
+// -----------------------------------------
+Route::get('acara', [AcaraController::class, 'showAcara'])->name('acara.show'); // User
+Route::get('admin/acara', [AcaraController::class, 'indexAdmin'])->name('admin.acara.index'); // Halaman utama admin acara
+Route::post('admin/acara/store', [AcaraController::class, 'store'])->name('admin.acara.store');
+Route::get('admin/acara/{id}/edit', [AcaraController::class, 'edit'])->name('admin.acara.edit'); // Form edit acara
+Route::put('admin/acara/{id}', [AcaraController::class, 'update'])->name('admin.acara.update'); // Memperbarui data acara
+Route::delete('admin/acara/{id}', [AcaraController::class, 'destroy'])->name('admin.acara.destroy'); // Menghapus acara
+
+// -----------------------------------------
 // Admin Koleksi Routes
-// -----------------------------------------
-Route::get('koleksi', [KoleksiController::class, 'showKoleksi'])->name('koleksi'); // User
-Route::get('admin/koleksi', [AdminController::class, 'readAdminKoleksi'])->name('admin.read_adminkoleksi'); // Yang mengarahkan ke dashboard
-Route::get('admin/koleksi', [KoleksiController::class, 'indexadmin'])->name('admin.adminkoleksi.readadminkoleksi'); // Setelah upload, akan kembali kesini
-Route::post('admin/koleksi', [KoleksiController::class, 'store'])->name('readadminkoleksi.store'); // Setelah upload, akan kembali kesini
-Route::get('admin/{id}/edit', [KoleksiController::class, 'edit'])->name('readadminkoleksi.edit'); 
-// Route::put('admin/{id}', [KoleksiController::class, 'update'])->name('readadminkoleksi.update'); 
-Route::put('admin/koleksi/{id}', [KoleksiController::class, 'update'])->name('readadminkoleksi.update');
-Route::delete('admin/{id}/destroy', [KoleksiController::class, 'destroy'])->name('koleksi.destroy');
-
+// ----------------------------------------- 
+Route::get('koleksi', [KoleksiController::class, 'showKoleksi'])->name('koleksi.show'); // User
+Route::get('admin/koleksi', [KoleksiController::class, 'indexAdmin'])->name('admin.koleksi.index'); // Halaman utama admin koleksi
+Route::post('admin/koleksi', [KoleksiController::class, 'store'])->name('admin.koleksi.store'); // Menyimpan data koleksi baru
+Route::get('admin/koleksi/{id}/edit', [KoleksiController::class, 'edit'])->name('admin.koleksi.edit'); // Form edit koleksi
+Route::put('admin/koleksi/{id}', [KoleksiController::class, 'update'])->name('admin.koleksi.update'); // Memperbarui data koleksi
+Route::delete('admin/koleksi/{id}', [KoleksiController::class, 'destroy'])->name('admin.koleksi.destroy'); // Menghapus koleksi
 
 // -----------------------------------------
-// Admin Tiket Routes
+// Admin Tiket Routes 
 // -----------------------------------------
-Route::get('admin/admintiket/readadminkoleksi', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');
+Route::get('admin/tiket', [TiketController::class, 'readAdminTiket'])->name('admin.tiket.index');
+Route::get('admin/tiket', [TiketController::class, 'readAdminTiket'])->name('admin.read_admintiket');
 
 
-Route::get('/users',[UserController::class,'loadAllUsers']);
-Route::get('/add/user',[UserController::class,'loadAddUserForm']);
-
-Route::post('/add/user',[UserController::class,'AddUser'])->name('AddUser');
-
-Route::get('/edit/{id}',[UserController::class,'loadEditForm']);
-Route::get('/delete/{id}',[UserController::class,'deleteUser']);
-
-Route::post('/edit/user',[UserController::class,'EditUser'])->name('EditUser');
+// Routes for User Management
+Route::get('/users', [UserController::class, 'loadAllUsers']);
+Route::get('/add/user', [UserController::class, 'loadAddUserForm']);
+Route::post('/add/user', [UserController::class, 'AddUser'])->name('AddUser');
+Route::get('/edit/{id}', [UserController::class, 'loadEditForm']);
+Route::post('/edit/user', [UserController::class, 'EditUser'])->name('EditUser');
+Route::get('/delete/{id}', [UserController::class, 'deleteUser']);
