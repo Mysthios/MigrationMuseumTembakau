@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('ticket_type', 255)->default('general'); // varchar(255), default value
             $table->integer('ticket_quantity')->default(1); // default 1 jika tidak diisi
             $table->decimal('total_price', 10, 2)->default(0.00); // default 0.00 jika tidak diisi
-            $table->date('purchase_date')->default(DB::raw('CURRENT_DATE')); // date, default current date
+            $table->date('purchase_date'); 
             $table->date('visit_date')->nullable(); // date, nullable
         });        
 

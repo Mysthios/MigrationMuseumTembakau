@@ -41,7 +41,7 @@
 
 <div class="container mx-auto flex flex-col md:flex-row mt-10 gap-6 px-4">
   <!-- Left Section (Information) -->
-  <div class="w-full md:w-1/2 h-[700px] relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105">
+  <div class="w-full md:w-1/2 h-[730px] relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105">
       <img src="image/tiket.jpeg" alt="Museum" class="w-full h-full object-cover rounded-lg">
       <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-8 flex flex-col justify-end text-white">
           <h2 class="text-4xl font-bold mb-5 animate-fade-in">Visit Prices</h2>
@@ -60,12 +60,12 @@
   </div>
 
   <!-- Right Section (Form) -->
-  <div class="w-full md:w-1/2 bg-white rounded-lg shadow-lg p-6 flex flex-col h-[700px]">
+  <div class="w-full md:w-1/2 bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
       <h2 class="text-2xl font-bold mb-4">Pesan Tiket</h2>
       @if (Session::has('fail'))
           <span class="block bg-red-100 text-red-700 p-2 rounded mb-4">{{ Session::get('fail') }}</span>
       @endif
-      <form action="{{ route('AddUser') }}" method="post" class="space-y-4 flex-grow">
+      <form action="{{ route('tiket.index') }}" method="post" class="space-y-4 flex-grow">
           @csrf
           <div>
               <label for="full_name" class="block text-sm font-medium text-gray-700">Full Name</label>

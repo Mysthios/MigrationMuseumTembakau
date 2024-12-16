@@ -9,6 +9,8 @@ use App\Http\Controllers\ProgramDonasiController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\InfoMuseumController;
 use App\Http\Controllers\TestController;
+use App\Http\Kernel;
+use App\Http\Middleware\AdminMiddleware;
 
 // -----------------------------------------
 // Public Routes

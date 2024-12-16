@@ -23,6 +23,4 @@ class AdminTableSeeder extends Seeder
                 'updated_at' => now(),
             ]]);
     }
-     
-    
 }
