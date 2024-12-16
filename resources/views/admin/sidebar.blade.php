@@ -15,7 +15,7 @@
         <li>
             <a href="{{ route('admin.read_admintiket') }}" class="block px-4 py-2 rounded-md hover:bg-gray-700">
                 Manajemen Tiket
-            </a>
+            </a>    
         </li>
         <li>
             <a href="{{ route('admin.read_adminprogramdonasi') }}" class="block px-4 py-2 rounded-md hover:bg-gray-700">
