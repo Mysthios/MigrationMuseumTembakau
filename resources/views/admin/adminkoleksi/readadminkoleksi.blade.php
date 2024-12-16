@@ -1,18 +1,16 @@
-
-@extends('layouts.app')
+@extends('admin.index')
 
 @section('title', 'Koleksi Museum')
-
 @section('content')
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
 <main class="my-8">
     <div class="container mx-auto px-6">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        <h3 class="text-gray-600 text-2xl font-medium">Koleksi Museum</h3>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-5 mb-5"
             onclick="document.getElementById('addKoleksi').classList.remove('hidden')">
             Tambah koleksi
         </button>
-        <h3 class="text-gray-600 text-2xl font-medium">koleksi Museum</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             @if ($koleksis->isEmpty())
             <p>Tidak ada koleksi yang tersedia saat ini.</p>
@@ -25,7 +23,6 @@
                             style="background-image: url('{{ asset('storage/' . $koleksi->gambar) }}');">
                         </div>
                     </div>
-                    <!-- Tombol Aksi -->
                     <div class="absolute top-4 right-4 z-10 flex space-x-2">
                         <!-- Tombol Edit -->
                         <button class="p-2 rounded bg-blue-600 text-white shadow-lg hover:bg-blue-500 focus:outline-none"
@@ -57,7 +54,6 @@
         </div>
     </div>
 </main>
-
 
 {{-- Pop up tambah koleksi --}}
 <div id="addKoleksi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
@@ -122,7 +118,6 @@
     </div>
 </div>
 
-
 <script>
     function openEditKoleksi(koleksi) {
     const editForm = document.getElementById('editForm');
@@ -134,7 +129,6 @@
 
         document.getElementById('editKoleksi').classList.remove('hidden');
 }
-
 </script>
 
 @endsection 

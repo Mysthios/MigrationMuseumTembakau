@@ -1,18 +1,17 @@
 
-@extends('layouts.app')
+@extends('admin.index')
 
 @section('title', 'Acara Museum')
-
 @section('content')
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
 <main class="my-8">
-    <div class="container mx-auto px-6">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+    <div class="container mx-auto px-6 ">
+        <h3 class="text-gray-600 text-2xl font-medium">Acara Museum</h3>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-5 mb-5"
             onclick="document.getElementById('addAcara').classList.remove('hidden')">
             Tambah Acara
         </button>
-        <h3 class="text-gray-600 text-2xl font-medium">Acara Museum</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             @if ($acaras->isEmpty())
             <p>Tidak ada acara yang tersedia saat ini.</p>
