@@ -25,7 +25,7 @@ class DonationController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        // Simpan data ke database
+        // Simpan data ke database 
         Donation::create([
             'donor_name' => $request->donor_name,
             'email' => $request->email,
@@ -34,7 +34,9 @@ class DonationController extends Controller
         ]);
 
         // Redirect atau memberikan response
-        return redirect()->back()->with('success', 'Donasi berhasil dikirim!');
+        // return redirect()->back()->with('success', 'Donasi berhasil dikirim!');
+        return redirect()->route('program_donasi.index')->with('success', 'Donasi berhasil ditambahkan!');
+
     }
     // Tampilkan halaman admin dengan data donasi
     public function adminIndex()

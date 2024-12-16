@@ -56,7 +56,14 @@ Route::middleware([IsAdmin::class])->group(function () {
 
     //  
     Route::get('admin/admintiket/readadmintiket', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');
+
+    //
     Route::get('admin/admindonasi/readadmindonasi', [AdminController::class, 'readAdminDonasi'])->name('admin.read_admindonasi');
+    // Route::get('admin/adminprogramdonasi/readadmindonasi', [AdminController::class, 'readAdminDonasi'])->name('admin.read_admindonasi');
+    // Route::get('/admin/donations', [DonationController::class, 'index'])->name('admin.donations');
+    Route::delete('/admin/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+    Route::get('/admin/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
+
 });
 
 
@@ -92,32 +99,28 @@ Route::get('/delete/{id}', [UserController::class, 'deleteUser']);
 
 
 
-Route::get('/donation-form', [DonationController::class, 'showForm'])->name('donation.form');
-Route::post('/donation-submit', [DonationController::class, 'store'])->name('donation.store');
+// Route::get('/donation-form', [DonationController::class, 'showForm'])->name('donation.form');
+// Route::post('/donation-submit', [DonationController::class, 'store'])->name('donation.store');
 
-Route::get('/admin/donations', [DonationController::class, 'index'])->name('admin.donations');
-Route::delete('/admin/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+// Route::get('/admin/donations', [DonationController::class, 'index'])->name('admin.donations');
+// Route::delete('/admin/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
 
 
-
-Route::get('admin/adminprogramdonasi/readadmindonasi', [AdminController::class, 'readadmindonasi'])->name('admin.read_adminacara');
-
-Route::post('/donations', [DonationController::class, 'store'])->name('donations.store');
-Route::get('/program-donasi', [DonationController::class, 'index'])->name('donations.index');
-Route::post('/program-donasi', [DonationController::class, 'store'])->name('donations.store');
+// Route::post('/donations', [DonationController::class, 'store'])->name('donations.store');
+Route::get('/program-donasi', [DonationController::class, 'index'])->name('donations.index'); //user
+Route::post('/program-donasi', [DonationController::class, 'store'])->name('donations.store'); //user
 
 // Admin Routes
-Route::prefix('admin')->group(function () {
-    Route::get('/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
-    Route::delete('/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
-});
+// Route::prefix('admin')->group(function () {
+//     Route::get('/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
+//     Route::delete('/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+// });
 
 
-Route::get('/donation-form', [DonationController::class, 'showForm'])->name('donation.form');
-Route::post('/donation-submit', [DonationController::class, 'store'])->name('donation.store');
+// Route::get('/donation-form', [DonationController::class, 'showForm'])->name('donation.form');
+// Route::post('/donation-submit', [DonationController::class, 'store'])->name('donation.store');
 
-Route::get('/admin/donations', [DonationController::class, 'index'])->name('admin.donations');
-Route::delete('/admin/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+
 
 
 
@@ -128,10 +131,10 @@ Route::get('/program-donasi', [DonationController::class, 'index'])->name('donat
 Route::post('/program-donasi', [DonationController::class, 'store'])->name('donations.store');
 
 // Admin Routes
-Route::prefix('admin')->group(function () {
-    Route::get('/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
-    Route::delete('/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
-});
+// Route::prefix('admin')->group(function () {
+//     Route::get('/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
+//     Route::delete('/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
+// });
 
 
 

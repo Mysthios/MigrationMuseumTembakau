@@ -73,7 +73,7 @@ class AcaraController extends Controller
     public function showAcara()
     {
         $acaras = Acara::all(); 
-        return view('acara.index', compact('acaras')); 
+        return view('acara.index', compact('acaras'));  
     }
 
     public function detailAcara($id)

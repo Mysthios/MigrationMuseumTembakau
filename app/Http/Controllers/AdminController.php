@@ -6,6 +6,7 @@ use App\Models\Koleksi;
 use Illuminate\Support\Facades\Auth;
 use Illumintate\Foundation\Auth\User as Authcenticable;
 use App\Models\Acara;
+use App\Models\Donation;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -97,7 +98,7 @@ class AdminController extends Controller
 
     public function readAdminKoleksi()
     {
-        $koleksis = Koleksi::all(); // Ambil semua data koleksi
+        $koleksis = Koleksi::all(); // Ambil semua data koleksi 
         return view('admin.adminkoleksi.readadminkoleksi', compact('koleksis')); // Kirim ke view
     }
     
@@ -109,7 +110,8 @@ class AdminController extends Controller
 
     public function readAdminDonasi()
     {
-        return view('admin.adminprogramdonasi.readadminprogramdonasi', compact('programDonasis'));
+        $donations = Donation::all(); 
+        return view('admin.adminprogramdonasi.readadmindonasi', compact('donations'));
     }
 
 
