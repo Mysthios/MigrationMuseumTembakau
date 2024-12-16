@@ -8,9 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProgramDonasiController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\InfoMuseumController;
-use App\Http\Controllers\TestController;
-use App\Http\Kernel;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\IsAdmin;
 
 // -----------------------------------------
 // Public Routes
@@ -34,7 +33,7 @@ Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login
 // Admin Routes
 // -----------------------------------------
 // Hanya bisa diakses oleh admin
-Route::middleware(AdminMiddleware::class)->group(function () {
+Route::middleware([IsAdmin::class])->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     // Admin Acara
@@ -55,6 +54,9 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 
     // 
     Route::get('admin/admintiket/readadminkoleksi', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');
+
+    //
+    Route::get('admin/adminprogramdonasi/readadminprogramdonasi', [AdminController::class, 'readAdminDonasi'])->name('admin.read_adminprogramdonasi');
 });
 
 

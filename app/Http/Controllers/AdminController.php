@@ -18,6 +18,39 @@ class AdminController extends Controller
     }
 
     // Proses login
+
+
+
+
+
+
+
+
+    // public function login(Request $request)
+    // {
+    // // Username dan password yang di-hardcode
+    // $hardcodedUsername = 'admin';
+    // $hardcodedPassword = 'password123'; // Password yang ditentukan
+
+    // // Validasi input
+    // $credentials = $request->validate([
+    //     'username' => 'required',
+    //     'password' => 'required',
+    // ]);
+
+    // // Cek apakah username dan password cocok
+    // if ($credentials['username'] === $hardcodedUsername && $credentials['password'] === $hardcodedPassword) {
+    //     // Simpan informasi login ke session
+    //     $request->session()->put('admin_logged_in', true);
+
+    //     // Redirect ke dashboard
+    //     return redirect()->route('admin.dashboard')->with('success', 'Login berhasil!');
+    // }
+
+    // // Jika login gagal
+    // return back()->with('error', 'Username atau Password salah.');
+    // }
+
     public function login(Request $request)
     {
     // Validasi input username dan password
@@ -31,18 +64,20 @@ class AdminController extends Controller
 
         // Cek apakah admin ditemukan dan password cocok
         if ($admin && Hash::check($credentials['password'], $admin->password)) {
-            // Simpan informasi admin ke sesi atau gunakan mekanisme login Laravel
-            // session(['admin_id' => $admin->admin_id]);
-            // Auth::login($admin);
+            // Regenerasi session ID agar session lama tidak digunakan
+            $request->session()->regenerate();
+        
+            // Simpan informasi admin ke session
             $request->session()->put('admin_logged_in', true);
             $request->session()->put('admin_id', $admin->admin_id);
-
-            // Redirect ke dashboard jika login berhasil
+        
+            // Redirect ke dashboard
             return redirect()->route('admin.dashboard')->with('success', 'Login berhasil!');
         }
+        
+        // Jika login gagal, redirect kembali ke halaman login dengan pesan error
+        return redirect()->route('admin.login')->with('error', 'Username atau password salah.');
 
-            // Jika login gagal, beri pesan error
-        return back()->with('error', 'Username atau Password salah');
     }
 
 
@@ -74,7 +109,6 @@ class AdminController extends Controller
 
     public function readAdminDonasi()
     {
-        $programDonasis = \App\Models\ProgramDonasi::with('admin')->get(); 
         return view('admin.adminprogramdonasi.readadminprogramdonasi', compact('programDonasis'));
     }
 
