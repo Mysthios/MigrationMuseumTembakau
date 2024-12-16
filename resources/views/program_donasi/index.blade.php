@@ -59,10 +59,11 @@
   </section>
 
 <!-- Donation Form Section -->
+<!-- Donation Form Section -->
 <div class="w-full md:w-1/2 h-auto bg-gradient-to-br from-[#f1e0b5] to-[#d8c29e] rounded-2xl shadow-xl overflow-hidden mx-auto transform transition-all duration-500 hover:scale-105 hover:shadow-2xl animate__animated animate__fadeIn">
     <div class="p-8 bg-white">
         <h3 class="text-4xl font-extrabold mb-6 text-center text-[#8b5e34] tracking-wide">Program Donasi</h3>
-        <form id="donation-form" action="{{ route('program-donasi.store') }}" method="POST" class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-md">
+        <form id="donation-form" action="{{ route('program-donasi.store') }}" method="POST" onsubmit="handleFormSubmit(event)" class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-md">
             @csrf
             <div class="mb-4">
                 <label for="donor-name" class="block text-lg font-semibold text-gray-700 mb-2">Nama Donatur</label>
@@ -90,18 +91,14 @@
         
             <div class="mb-4">
                 <label for="donation-amount" class="block text-lg font-semibold text-gray-700 mb-2">Nominal Donasi</label>
-                <select 
+                <input 
+                    type="number" 
                     id="donation-amount" 
                     name="donation_amount" 
+                    placeholder="Masukkan Nominal Donasi (Rp)" 
                     class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
-                >
-                    <option value="50000">Rp50.000</option>
-                    <option value="100000">Rp100.000</option>
-                    <option value="200000">Rp200.000</option>
-                    <option value="500000">Rp500.000</option>
-                    <option value="1000000">Rp1.000.000</option>
-                </select>
+                />
             </div>
         
             <div class="mb-4">
@@ -124,64 +121,62 @@
                 </button>
             </div>
         </form>
-        
+    </div>
+</div>
 
-
-{{-- <!-- Popup for confirmation -->
-<div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg shadow-lg p-6 w-80 animate__animated animate__fadeIn animate__delay-2s">
-        <h3 class="text-xl font-bold mb-4 text-center text-[#c09858]">Detail Donasi</h3>
-        <p class="text-gray-700 mb-2"><strong>Nama Donatur:</strong> <span id="popup-name"></span></p>
+<!-- Pop-Up Modal -->
+<div id="donation-popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-8 w-96 relative">
+        <h3 class="text-2xl font-bold text-center text-[#8b5e34] mb-6">Detail Donasi Anda</h3>
+        <p class="text-gray-700 mb-2"><strong>Nama:</strong> <span id="popup-donor-name"></span></p>
         <p class="text-gray-700 mb-2"><strong>Email:</strong> <span id="popup-email"></span></p>
-        <p class="text-gray-700 mb-4"><strong>Nominal Donasi:</strong> <span id="popup-amount"></span></p>
-        <img id="popup-qris" src="qris-placeholder.png" alt="QRIS Code" class="w-full h-auto rounded shadow mb-4" />
-        <button onclick="closePopup()" class="mt-4 bg-[#8b5e34] text-white px-4 py-2 rounded-lg hover:bg-[#704927] transition focus:outline-none focus:ring focus:ring-[#8b5e34]">
+        <p class="text-gray-700 mb-6"><strong>Total Donasi:</strong> Rp<span id="popup-donation-amount"></span></p>
+        <div class="text-center">
+            <img src="QR code.jpeg" alt="QRIS" class="w-48 mx-auto mb-4" />
+            <p class="text-gray-500 text-sm">Silakan scan QRIS untuk melanjutkan donasi.</p>
+        </div>
+        <button 
+            onclick="closePopup()" 
+            class="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-4 mx-auto block"
+        >
             Tutup
         </button>
     </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('donation-form');
-    const popup = document.getElementById('popup');
-    const popupName = document.getElementById('popup-name');
-    const popupEmail = document.getElementById('popup-email');
-    const popupAmount = document.getElementById('popup-amount');
-    const popupQris = document.getElementById('popup-qris');
-    const customAmountInput = document.getElementById('custom-amount');
-    const customAmountContainer = document.getElementById('custom-amount-container');
+    function handleFormSubmit(event) {
+        event.preventDefault(); // Prevent default form submission temporarily
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
+        // Ambil data form
         const donorName = document.getElementById('donor-name').value;
         const email = document.getElementById('email').value;
         const donationAmount = document.getElementById('donation-amount').value;
-        let donationAmountValue = donationAmount === 'custom' ? customAmountInput.value : donationAmount;
 
-        popupName.textContent = donorName;
-        popupEmail.textContent = email;
-        popupAmount.textContent = `Rp${parseInt(donationAmountValue).toLocaleString()}`;
-        popupQris.src = 'qris-placeholder.png'; 
+        // Set data ke pop-up
+        document.getElementById('popup-donor-name').textContent = donorName;
+        document.getElementById('popup-email').textContent = email;
+        document.getElementById('popup-donation-amount').textContent = donationAmount;
 
-        popup.classList.remove('hidden');
-        popup.classList.add('animate__fadeIn');
-        form.reset();
-    });
+        // Tampilkan pop-up
+        document.getElementById('donation-popup').classList.remove('hidden');
 
-    window.closePopup = function () {
-        popup.classList.add('hidden');
-    };
+        // Kirim data ke backend setelah pop-up muncul
+        setTimeout(() => {
+            document.getElementById('donation-form').submit();
+        }, 2000); // Delay 2 detik sebelum data dikirim
+    }
 
-    document.getElementById('donation-amount').addEventListener('change', function () {
-        if (this.value === 'custom') {
-            customAmountContainer.classList.remove('hidden');
-        } else {
-            customAmountContainer.classList.add('hidden');
-        }
-    });
-});
-</script> --}}
+    function closePopup() {
+        // Sembunyikan pop-up
+        document.getElementById('donation-popup').classList.add('hidden');
+    }
+</script>
+
+
+
+        
+
+
 
 @endsection
