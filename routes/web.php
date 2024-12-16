@@ -5,7 +5,6 @@ use App\Http\Controllers\KoleksiController;
 use App\Http\Controllers\AcaraController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-// use App\Http\Controllers\ProgramDonasiController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\InfoMuseumController;
 use App\Http\Controllers\DonationController;
@@ -51,8 +50,13 @@ Route::middleware([IsAdmin::class])->group(function () {
     Route::put('admin/koleksi/{id}', [KoleksiController::class, 'update'])->name('admin.koleksi.update');
     Route::delete('admin/koleksi/{id}', [KoleksiController::class, 'destroy'])->name('admin.koleksi.destroy');
 
-    //  
+    //  Admin Tiket
+    Route::get('/admin/readadmintiket', [TiketController::class, 'readAdminTiket'])->name('admin.read_admintiket');
+
     Route::get('admin/admintiket/readadmintiket', [AdminController::class, 'readAdminTiket'])->name('admin.read_admintiket');
+    Route::get('/users', [UserController::class, 'loadAllUsers'])->name('admin.users');
+    Route::get('/delete/{id}', [UserController::class, 'deleteUser']);
+
 
     // Admin Donasi
     Route::get('admin/admindonasi/readadmindonasi', [AdminController::class, 'readAdminDonasi'])->name('admin.read_admindonasi');
@@ -81,12 +85,11 @@ Route::get('koleksi/{id}', [KoleksiController::class, 'detailKoleksi'])->name('k
 Route::get('admin/tiket', [TiketController::class, 'readAdminTiket'])->name('admin.tiket.index');
 Route::get('admin/tiket', [TiketController::class, 'readAdminTiket'])->name('admin.read_admintiket');
 // Routes for User Management
-Route::get('/users', [UserController::class, 'loadAllUsers']);
 Route::get('/add/user', [UserController::class, 'loadAddUserForm']);
 Route::post('/add/user', [UserController::class, 'AddUser'])->name('AddUser');
 Route::get('/edit/{id}', [UserController::class, 'loadEditForm']);
 Route::post('/edit/user', [UserController::class, 'EditUser'])->name('EditUser');
-Route::get('/delete/{id}', [UserController::class, 'deleteUser']);
+
 
 // -----------------------------------------
 // Admin Donasi Routes 
