@@ -49,7 +49,7 @@
                     <div class="mt-28 text-center xl:text-left">
                         <h1 class="font-semibold text-4xl md:text-6xl lg:text-7xl text-gray-900 leading-normal mb-6">Museum <br>Tembakau &<br> Perpustakaan</h1>
                         <p class="font-normal text-xl text-gray-400 leading-relaxed mb-12">Menyampaikan sejarah pertembakauan dengan elegan & <br> mengedukasi masyarakat melalui narasi yang bermakna.</p>
-                        <button class="px-6 py-4 bg-yellow-900 text-white font-semibold text-lg rounded-xl hover:bg-amber-950 transition ease-in-out duration-500">Pesan Tiket</button>
+                        <a href="/tiket" class="px-6 py-4 bg-yellow-900 text-white font-semibold text-lg rounded-xl hover:bg-amber-950 transition ease-in-out duration-500">Pesan Tiket</a>
                     </div>
                     <div class="hidden xl:block xl:absolute z-0 top-0 right-0">
                         <img src="{{ asset('assets/Frame 5.png') }}" alt="Home img">
