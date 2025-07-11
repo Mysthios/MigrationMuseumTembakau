@@ -20,21 +20,46 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
+    // Validasi input username dan password
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
+        // Cari admin berdasarkan username
         $admin = \App\Models\Admin::where('username', $credentials['username'])->first();
 
+        // Cek apakah admin ditemukan dan password cocok
         if ($admin && Hash::check($credentials['password'], $admin->password)) {
+            // Regenerasi session ID agar session lama tidak digunakan
+            $request->session()->regenerate();
+        
+            // Simpan informasi admin ke session
             $request->session()->put('admin_logged_in', true);
             $request->session()->put('admin_id', $admin->admin_id);
+        
+            // Redirect ke dashboard
             return redirect()->route('admin.dashboard')->with('success', 'Login berhasil!');
         }
+        
+        // Jika login gagal, redirect kembali ke halaman login dengan pesan error
+        return redirect()->route('admin.login')->with('error', 'Username atau password salah.');
 
-        return back()->with('error', 'Username atau Password salah');
     }
+
+    public function logout(Request $request)
+{
+    // Hapus semua session terkait admin
+    $request->session()->forget(['admin_logged_in', 'admin_id']);
+
+    // Regenerasi session ID untuk keamanan
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    // Redirect ke halaman login dengan pesan logout berhasil
+    return redirect()->route('admin.login')->with('success', 'Anda telah logout.');
+}
+
 
 
 

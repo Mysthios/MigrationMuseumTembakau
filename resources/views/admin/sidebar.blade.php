@@ -58,6 +58,48 @@
                 </ul>
             </nav>
         </div>
+        <!-- Logout Button at the Bottom -->
+        <!-- Logout Button at the Bottom -->
+        <!-- Logout Button -->
+        <div class="px-4 py-4">
+            <button type="button"
+                    onclick="showLogoutModal()"
+                    class="block w-full px-4 py-3 text-white rounded-lg bg-[#6D4C41] hover:bg-[#5D4037] hover:shadow-lg transition-all duration-300 flex items-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H4a3 3 0 01-3-3v-6a3 3 0 013-3h6a3 3 0 013 3v1"/>
+                </svg>
+                <span>Logout</span>
+            </button>
+        </div>
+
+        <!-- Modal Popup -->
+        <div id="logout-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-white rounded-lg shadow-lg w-1/3">
+                <div class="p-4 border-b">
+                    <h2 class="text-lg font-semibold">Konfirmasi Logout</h2>
+                </div>
+                <div class="p-4">
+                    <p>Apakah Anda yakin ingin logout?</p>
+                </div>
+                <div class="flex justify-end p-4 border-t">
+                    <button onclick="hideLogoutModal()"
+                            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-all">
+                        Batal
+                    </button>
+                    <form action="{{ route('admin.logout') }}" method="POST" class="ml-2">
+                        @csrf
+                        <button type="submit"
+                                class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+</div>
+
     </div>
 </aside>
 
@@ -76,3 +118,14 @@
         border-radius: 4px;
     }
 </style>
+
+<script>
+    function showLogoutModal() {
+        document.getElementById('logout-modal').classList.remove('hidden');
+    }
+
+    function hideLogoutModal() {
+        document.getElementById('logout-modal').classList.add('hidden');
+    }
+</script>
+

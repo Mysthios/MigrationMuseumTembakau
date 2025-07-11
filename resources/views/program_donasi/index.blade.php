@@ -132,7 +132,7 @@
         <p class="text-gray-700 mb-2"><strong>Email:</strong> <span id="popup-email"></span></p>
         <p class="text-gray-700 mb-6"><strong>Total Donasi:</strong> Rp<span id="popup-donation-amount"></span></p>
         <div class="text-center">
-            <img src="QR code.jpeg" alt="QRIS" class="w-48 mx-auto mb-4" />
+            <img src="image/QR.jpeg" alt="QRIS" class="w-40 mx-auto">
             <p class="text-gray-500 text-sm">Silakan scan QRIS untuk melanjutkan donasi.</p>
         </div>
         <button 

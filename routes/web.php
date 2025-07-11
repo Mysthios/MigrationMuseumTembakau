@@ -63,6 +63,10 @@ Route::middleware([IsAdmin::class])->group(function () {
     Route::delete('/admin/donations/{id}', [DonationController::class, 'destroy'])->name('admin.donations.delete');
     Route::get('/admin/donations', [DonationController::class, 'adminIndex'])->name('admin.donations.index');
 
+
+    Route::post('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+
 });
 
 
